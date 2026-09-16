@@ -1276,6 +1276,143 @@ select option{
   background:#f2ead9 !important;
 }
 
+
+/* ===== V18 MODALITA' NARRATORE ===== */
+
+.narrator-access{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:2500;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid rgba(184,170,130,.18);
+  background:rgba(20,23,25,.92);
+  color:#887d69;
+  opacity:.25;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.narrator-access:hover{
+  opacity:1;
+  color:#e0cfaa;
+  border-color:rgba(224,207,170,.5);
+}
+
+body.narrator-mode .narrator-access{
+  opacity:1;
+  color:#e0cfaa;
+  background:rgba(92,58,20,.75);
+}
+
+.narrator-badge{
+  display:none;
+}
+
+body.narrator-mode .narrator-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 10px;
+  border-radius:999px;
+  background:rgba(213,126,0,.18);
+  border:1px solid rgba(213,126,0,.35);
+  color:#e8c98b;
+  font-size:8px;
+  font-weight:bold;
+}
+
+.narrator-editor{
+  margin-top:16px;
+  padding:16px;
+  border-radius:16px;
+  background:#111516;
+  border:1px dashed rgba(213,126,0,.4);
+}
+
+.narrator-editor h3{
+  color:#e8c98b;
+  font-family:'magic','MedievalSharp',serif;
+}
+
+.narrator-editor label{
+  display:block;
+  margin:10px 0;
+  color:#aaa;
+  font-size:9px;
+}
+
+.narrator-editor input,
+.narrator-editor textarea,
+.narrator-editor select{
+  width:100%;
+  background:#1b2022;
+  border:1px solid rgba(184,170,130,.2);
+  border-radius:8px;
+  padding:8px;
+  color:#eee;
+}
+
+.narrator-save{
+  margin-top:10px;
+  padding:9px 15px;
+  border-radius:10px;
+  border:1px solid rgba(213,126,0,.35);
+  background:#38240e;
+  color:#e8c98b;
+  cursor:pointer;
+}
+
+
+/* ===== V19 CARD PIU' COMPATTE ===== */
+
+.cards{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:12px !important;
+}
+
+.product-card{
+  min-height:300px !important;
+  border-radius:16px !important;
+}
+
+.product-card .product-image,
+.product-card img{
+  height:145px !important;
+  min-height:145px !important;
+}
+
+.product-card h3{
+  font-size:18px !important;
+  line-height:1.15 !important;
+}
+
+.product-card p{
+  font-size:9px !important;
+}
+
+.product-card .meta,
+.product-card .badge{
+  transform:scale(.92);
+  transform-origin:left center;
+}
+
+@media(max-width:1100px){
+  .cards{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+}
+
+@media(max-width:760px){
+  .cards{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1545,7 +1682,7 @@ select option{
 
     <section class="section-heading">
       <div>
-        <p class="eyebrow" id="collectionEyebrow">Catalogo generale</p>
+        <span class="narrator-badge"><i class="fa-solid fa-feather"></i> Modalità Narratore</span><p class="eyebrow" id="collectionEyebrow">Catalogo generale</p>
         <h2 id="collectionTitle">Oggetti in evidenza</h2>
         <div class="home-showcase-note" id="homeShowcaseNote">
           <i class="fa-solid fa-wand-sparkles"></i>
@@ -1654,7 +1791,7 @@ window.CATALOG_DATA = {
      ============================================================ */
   meta: {
     title: "Catalogo del Mondo Magico",
-    version: "1.7-background-location-select",
+    version: "1.9-card-4-colonne-vetrina-12",
     currency: "G"
   },
 
@@ -2211,13 +2348,26 @@ function setLocationTheme(location){
 
 const narratorAccess = document.getElementById('narratorAccess');
 
+function setNarratorMode(active){
+  if(active){
+    document.body.classList.add('narrator-mode');
+    localStorage.setItem('prezzari_narrator_mode','true');
+  }else{
+    document.body.classList.remove('narrator-mode');
+    localStorage.removeItem('prezzari_narrator_mode');
+  }
+}
+
 if(narratorAccess){
   narratorAccess.addEventListener('click',()=>{
+    if(document.body.classList.contains('narrator-mode')){
+      setNarratorMode(false);
+      return;
+    }
+
     const pass = prompt('Password Narratore prezzari:');
     if(pass === 'ADMIN'){
-      document.body.classList.add('narrator-mode');
-      localStorage.setItem('prezzari_narrator_mode','true');
-      alert('Modalità Narratore attivata');
+      setNarratorMode(true);
       location.reload();
     }
   });
@@ -2329,7 +2479,7 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
     };
   }
 
-  const HOME_SHOWCASE_SIZE = 9;
+  const HOME_SHOWCASE_SIZE = 12;
   let homeShowcaseIds = [];
 
   function isPristineHome(){
@@ -2874,6 +3024,559 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
 <button class="narrator-access" id="narratorAccess" type="button">
 <i class="fa-solid fa-key"></i> Narratore
 </button>
+
+
+<script>
+/* DATABASE COMMERCIO v1 - collegamento attivato */
+window.catalogoCaricato = false;
+window.catalogoOggetti = [];
+fetch('database_oggetti_finale_v1.js')
+.then(r=>r.text())
+.then(t=>{
+ try{
+   const match=t.match(/\[.*\]/s);
+   if(match){ window.catalogoOggetti=JSON.parse(match[0]); }
+   window.catalogoCaricato=true;
+   console.log('Catalogo oggetti caricato:', window.catalogoOggetti.length);
+ }catch(e){console.error('Errore database catalogo',e);}
+});
+</script>
+
+<script id="catalogo-dinamico-v21">
+/* PREZZARI DINAMICI - DATABASE COMMERCI V21 */
+(function(){
+    const DB_URL = "database_oggetti_finale_v1.js";
+
+    function caricaCatalogo(){
+        return fetch(DB_URL)
+        .then(r => r.text())
+        .then(t => {
+            const match = t.match(/const catalogoOggetti\s*=\s*(\[.*\]);?/s);
+            if(!match) throw new Error("Database non trovato");
+            window.catalogoOggetti = JSON.parse(match[1]);
+            window.catalogoPronto = true;
+            console.log("Catalogo dinamico pronto:", window.catalogoOggetti.length);
+            return window.catalogoOggetti;
+        });
+    }
+
+    window.prezzariDatabase = {
+        cerca: function(testo){
+            if(!window.catalogoOggetti) return [];
+            testo = (testo||"").toLowerCase();
+            return window.catalogoOggetti.filter(o =>
+                JSON.stringify(o).toLowerCase().includes(testo)
+            );
+        },
+        negozi: function(){
+            if(!window.catalogoOggetti) return [];
+            return [...new Set(
+                window.catalogoOggetti.flatMap(o =>
+                    o.varianti.map(v=>v.negozio)
+                )
+            )].sort();
+        },
+        casuali: function(n){
+            if(!window.catalogoOggetti) return [];
+            return [...window.catalogoOggetti]
+                .sort(()=>Math.random()-0.5)
+                .slice(0,n||12);
+        }
+    };
+
+    caricaCatalogo().catch(e=>console.error(e));
+})();
+</script>
+
+
+<script id="catalogo-renderer-v22">
+(function(){
+    function renderCard(o){
+        const prezzo = o.varianti?.map(v => v.prezzo).filter(Boolean)[0] || "";
+        return `
+        <div class="oggetto-card database-card" data-id="${o.id}">
+            ${o.immagine ? `<img src="${o.immagine}" class="oggetto-img">` : ""}
+            <div class="oggetto-titolo">${o.nome}</div>
+            <div class="oggetto-categoria">${o.categoria || ""}</div>
+            <div class="oggetto-prezzo">${prezzo}</div>
+            <button onclick="prezzariDatabase.apri('${o.id}')">Dettagli</button>
+        </div>`;
+    }
+
+    function renderVetrina(){
+        const box=document.querySelector("[data-vetrina-dinamica]");
+        if(!box || !window.catalogoOggetti) return;
+        box.innerHTML=window.prezzariDatabase.casuali(12)
+            .map(renderCard).join("");
+    }
+
+    window.prezzariDatabase.apri=function(id){
+        const o=window.catalogoOggetti.find(x=>x.id===id);
+        if(!o) return;
+        let varianti=o.varianti.map(v =>
+            `<div><b>${v.negozio}</b> - ${v.prezzo}</div>`
+        ).join("");
+
+        alert(
+            o.nome+"\n\n"+
+            (o.descrizione||"")+
+            "\n\n"+varianti
+        );
+    };
+
+    window.addEventListener("load", function(){
+        setTimeout(renderVetrina,500);
+    });
+
+    window.renderCatalogoV22 = renderVetrina;
+})();
+</script>
+
+
+<script id="catalogo-ui-v23">
+(function(){
+function creaPopup(){
+    if(document.getElementById("popup-oggetto-dinamico")) return;
+    const p=document.createElement("div");
+    p.id="popup-oggetto-dinamico";
+    p.style.cssText="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99999;padding:5%;overflow:auto;";
+    p.innerHTML=`
+    <div style="background:#171a1b;color:#f5e6c8;max-width:800px;margin:auto;padding:30px;border-radius:20px;">
+      <button id="chiudi-popup">X</button>
+      <div id="popup-contenuto"></div>
+    </div>`;
+    document.body.appendChild(p);
+    document.getElementById("chiudi-popup").onclick=()=>p.style.display="none";
+}
+
+window.prezzariDatabase.apri=function(id){
+    creaPopup();
+    const o=window.catalogoOggetti.find(x=>x.id===id);
+    if(!o)return;
+    const contenuto=document.getElementById("popup-contenuto");
+    contenuto.innerHTML=`
+    <h2>${o.nome}</h2>
+    ${o.immagine?`<img src="${o.immagine}" style="max-width:250px;">`:""}
+    <p><b>Categoria:</b> ${o.categoria||""}</p>
+    <p>${o.descrizione||""}</p>
+    <hr>
+    ${o.varianti.map(v=>`
+      <div>
+      <b>${v.negozio}</b><br>
+      Zona: ${v.zona}<br>
+      Tipo: ${v.legalita}<br>
+      Prezzo: ${v.prezzo}
+      </div><br>`).join("")}`;
+    document.getElementById("popup-oggetto-dinamico").style.display="block";
+};
+
+window.prezzariDatabase.filtra=function(params){
+    let lista=window.catalogoOggetti||[];
+    if(params.nome)
+      lista=lista.filter(o=>o.nome.toLowerCase().includes(params.nome.toLowerCase()));
+    if(params.categoria)
+      lista=lista.filter(o=>o.categoria===params.categoria);
+    if(params.negozio)
+      lista=lista.filter(o=>o.varianti.some(v=>v.negozio===params.negozio));
+    if(params.legalita)
+      lista=lista.filter(o=>o.varianti.some(v=>v.legalita===params.legalita));
+    return lista;
+};
+})();
+</script>
+
+
+<script id="catalogo-ui-v24">
+(function(){
+    function creaMotoreVetrina(){
+        const box=document.querySelector("[data-vetrina-dinamica]");
+        if(!box || !window.catalogoOggetti) return;
+
+        box.innerHTML=window.prezzariDatabase.casuali(12)
+        .map(o=>`
+        <div class="database-card" data-oggetto="${o.id}">
+            ${o.immagine?`<img src="${o.immagine}" loading="lazy">`:""}
+            <h3>${o.nome}</h3>
+            <span>${o.categoria||"Oggetto magico"}</span>
+            <button onclick="prezzariDatabase.apri('${o.id}')">Scopri</button>
+        </div>`).join("");
+    }
+
+    window.prezzariDatabase.renderNegozio=function(nome){
+        return (window.catalogoOggetti||[]).filter(o =>
+            o.varianti.some(v=>v.negozio===nome)
+        );
+    };
+
+    window.prezzariDatabase.tuttiINegozi=function(){
+        return [...new Set(
+            (window.catalogoOggetti||[])
+            .flatMap(o=>o.varianti.map(v=>v.negozio))
+        )].filter(Boolean).sort();
+    };
+
+    window.addEventListener("load",()=>{
+        setTimeout(creaMotoreVetrina,800);
+    });
+
+    window.aggiornaVetrinaMagica=creaMotoreVetrina;
+})();
+</script>
+
+
+<script id="catalogo-ui-v25">
+(function(){
+    function inizializzaInterfacciaDatabase(){
+        if(!window.catalogoOggetti) return;
+
+        // Crea il menu negozi dinamico se presente il contenitore
+        const menu=document.querySelector("[data-menu-negozi]");
+        if(menu){
+            menu.innerHTML=window.prezzariDatabase.tuttiINegozi()
+            .map(n=>`<option value="${n}">${n}</option>`).join("");
+        }
+
+        // Crea lista categorie
+        const categorie=document.querySelector("[data-menu-categorie]");
+        if(categorie){
+            const cats=[...new Set(window.catalogoOggetti.map(o=>o.categoria).filter(Boolean))].sort();
+            categorie.innerHTML=cats.map(c=>`<option value="${c}">${c}</option>`).join("");
+        }
+    }
+
+    window.prezzariDatabase.cercaAvanzata=function(f){
+        let lista=[...(window.catalogoOggetti||[])];
+
+        if(f.nome)
+            lista=lista.filter(o=>o.nome.toLowerCase().includes(f.nome.toLowerCase()));
+
+        if(f.categoria)
+            lista=lista.filter(o=>o.categoria===f.categoria);
+
+        if(f.negozio)
+            lista=lista.filter(o=>o.varianti.some(v=>v.negozio===f.negozio));
+
+        if(f.zona)
+            lista=lista.filter(o=>o.varianti.some(v=>v.zona===f.zona));
+
+        if(f.legalita)
+            lista=lista.filter(o=>o.varianti.some(v=>v.legalita===f.legalita));
+
+        if(f.tag)
+            lista=lista.filter(o=>o.tag?.includes(f.tag));
+
+        return lista;
+    };
+
+    window.addEventListener("load",()=>{
+        setTimeout(inizializzaInterfacciaDatabase,1000);
+    });
+})();
+</script>
+
+
+<script id="catalogo-ui-v26">
+(function(){
+
+function applicaSfondoNegozio(nome){
+    const body=document.body;
+    if(!body) return;
+
+    let n=(nome||"").toLowerCase();
+    if(n.includes("diagon")){
+        body.style.backgroundImage="url('diagon.png')";
+    } else if(n.includes("notturn") || n.includes("oscuro")){
+        body.style.backgroundImage="url('notturn.png')";
+    } else if(n.includes("hogsmeade")){
+        body.style.backgroundImage="url('hogsmeade.png')";
+    }
+}
+
+window.prezzariDatabase.selezionaNegozio=function(nome){
+    applicaSfondoNegozio(nome);
+    return window.prezzariDatabase.renderNegozio(nome);
+};
+
+window.prezzariDatabase.creaRisultati=function(lista, contenitore){
+    const box=document.querySelector(contenitore);
+    if(!box) return;
+
+    box.innerHTML=lista.map(o=>`
+    <div class="database-card">
+        ${o.immagine?`<img loading="lazy" src="${o.immagine}">`:""}
+        <h3>${o.nome}</h3>
+        <small>${o.categoria||""}</small>
+        <button onclick="prezzariDatabase.apri('${o.id}')">Apri scheda</button>
+    </div>
+    `).join("");
+};
+
+window.prezzariDatabase.ordinaPrezzo=function(lista){
+    return [...lista].sort((a,b)=>{
+        const pa=parseFloat((a.varianti?.[0]?.prezzo||"").replace(/[^\d]/g,""))||0;
+        const pb=parseFloat((b.varianti?.[0]?.prezzo||"").replace(/[^\d]/g,""))||0;
+        return pa-pb;
+    });
+};
+
+})();
+</script>
+
+
+<script id="catalogo-ui-v27">
+(function(){
+
+function creaPannelloFiltri(){
+    if(document.getElementById("filtri-database-v27")) return;
+
+    const box=document.createElement("div");
+    box.id="filtri-database-v27";
+    box.innerHTML=`
+    <div class="filtri-titolo">Filtri avanzati</div>
+    <div class="filtri-contenuto">
+        <input id="f-nome" placeholder="Cerca oggetto...">
+        <select id="f-categoria"><option value="">Tutte le categorie</option></select>
+        <select id="f-negozio"><option value="">Tutti i negozi</option></select>
+        <select id="f-legalita">
+            <option value="">Virtuoso/Sinistro</option>
+            <option value="Virtuoso">Virtuoso</option>
+            <option value="Sinistro">Sinistro</option>
+        </select>
+        <button id="applica-filtri">Cerca</button>
+    </div>`;
+
+    box.querySelector(".filtri-contenuto").style.display="none";
+    box.querySelector(".filtri-titolo").onclick=()=>{
+        const c=box.querySelector(".filtri-contenuto");
+        c.style.display=c.style.display==="none"?"block":"none";
+    };
+
+    document.body.appendChild(box);
+
+    const cats=[...new Set(window.catalogoOggetti.map(o=>o.categoria).filter(Boolean))].sort();
+    const negozi=window.prezzariDatabase.tuttiINegozi();
+
+    box.querySelector("#f-categoria").innerHTML += cats.map(x=>`<option>${x}</option>`).join("");
+    box.querySelector("#f-negozio").innerHTML += negozi.map(x=>`<option>${x}</option>`).join("");
+
+    box.querySelector("#applica-filtri").onclick=()=>{
+        const risultati=window.prezzariDatabase.cercaAvanzata({
+            nome:box.querySelector("#f-nome").value,
+            categoria:box.querySelector("#f-categoria").value,
+            negozio:box.querySelector("#f-negozio").value,
+            legalita:box.querySelector("#f-legalita").value
+        });
+        window.prezzariDatabase.creaRisultati(risultati,"[data-risultati-dinamici]");
+    };
+}
+
+window.addEventListener("load",()=>{
+    setTimeout(creaPannelloFiltri,1200);
+});
+
+})();
+</script>
+
+
+<script id="catalogo-ui-v28">
+(function(){
+
+function estendiFiltriV28(){
+    const panel=document.getElementById("filtri-database-v27");
+    if(!panel) return;
+
+    const contenuto=panel.querySelector(".filtri-contenuto");
+    if(!contenuto || document.getElementById("f-tag")) return;
+
+    const extra=`
+        <input id="f-tag" placeholder="Tag (es. Quidditch, Artefatto...)">
+        <input id="f-prezzo" placeholder="Prezzo massimo">
+    `;
+
+    contenuto.insertAdjacentHTML("beforeend", extra);
+
+    const btn=document.getElementById("applica-filtri");
+    btn.onclick=function(){
+        const maxPrezzo=parseInt(document.getElementById("f-prezzo").value)||null;
+
+        let risultati=window.prezzariDatabase.cercaAvanzata({
+            nome:document.getElementById("f-nome").value,
+            categoria:document.getElementById("f-categoria").value,
+            negozio:document.getElementById("f-negozio").value,
+            legalita:document.getElementById("f-legalita").value,
+            tag:document.getElementById("f-tag").value
+        });
+
+        if(maxPrezzo){
+            risultati=risultati.filter(o=>{
+                return o.varianti?.some(v=>{
+                    const p=parseInt(String(v.prezzo).replace(/[^\d]/g,""))||999999;
+                    return p<=maxPrezzo;
+                });
+            });
+        }
+
+        window.prezzariDatabase.creaRisultati(risultati,"[data-risultati-dinamici]");
+    };
+}
+
+function aggiornaPopupV28(){
+    if(!window.prezzariDatabase) return;
+    const vecchia=window.prezzariDatabase.apri;
+
+    window.prezzariDatabase.apri=function(id){
+        vecchia(id);
+        const popup=document.getElementById("popup-oggetto-dinamico");
+        if(popup){
+            popup.style.transition="opacity .3s";
+            popup.style.opacity="1";
+        }
+    };
+}
+
+window.addEventListener("load",()=>{
+    setTimeout(estendiFiltriV28,1500);
+    setTimeout(aggiornaPopupV28,1600);
+});
+
+})();
+</script>
+
+
+<script id="catalogo-ui-v29">
+(function(){
+
+/* CARD DEFINITIVE DATABASE */
+window.prezzariDatabase.cardDefinitiva=function(o){
+    const prezzo=(o.varianti||[])
+        .map(v=>v.prezzo)
+        .filter(Boolean)[0] || "Prezzo variabile";
+
+    return `
+    <div class="scheda-oggetto-database" data-id="${o.id}">
+        ${o.immagine ? `<img src="${o.immagine}" loading="lazy">` : 
+        `<div class="immagine-mancante">✨</div>`}
+        <div class="scheda-contenuto">
+            <h3>${o.nome}</h3>
+            <span>${o.categoria||"Oggetto magico"}</span>
+            <p>${prezzo}</p>
+            <button onclick="prezzariDatabase.apri('${o.id}')">
+                Apri scheda
+            </button>
+        </div>
+    </div>`;
+};
+
+/* RENDER GENERALE */
+window.prezzariDatabase.renderCompleto=function(lista, selettore){
+    const box=document.querySelector(selettore);
+    if(!box) return;
+    box.innerHTML=lista.map(o=>window.prezzariDatabase.cardDefinitiva(o)).join("");
+};
+
+/* HOME VETRINA */
+window.prezzariDatabase.caricaHome=function(){
+    if(!window.catalogoOggetti) return;
+    const lista=window.prezzariDatabase.casuali(12);
+    window.prezzariDatabase.renderCompleto(lista,"[data-vetrina-dinamica]");
+};
+
+/* ordina negozi */
+window.prezzariDatabase.elencoNegoziFinale=function(){
+    return window.prezzariDatabase.tuttiINegozi()
+    .sort((a,b)=>a.localeCompare(b));
+};
+
+window.addEventListener("load",()=>{
+    setTimeout(()=>{
+        window.prezzariDatabase.caricaHome();
+    },1800);
+});
+
+})();
+</script>
+
+
+<script id="catalogo-release-v30">
+(function(){
+
+/* RELEASE FINALE PREZZARI NEGOZI
+   Database-driven frontend
+*/
+
+window.prezzariRelease = {
+    versione: "V30",
+    database: true,
+    vetrinaRandom: true,
+    filtriAvanzati: true,
+    negoziDinamici: true
+};
+
+/* fallback ordinato per la vetrina */
+window.prezzariDatabase.avviaRelease=function(){
+    if(!window.catalogoOggetti) return;
+
+    const vetrina=document.querySelector("[data-vetrina-dinamica]");
+    if(vetrina && window.prezzariDatabase.caricaHome){
+        window.prezzariDatabase.caricaHome();
+    }
+
+    const negozi=window.prezzariDatabase.elencoNegoziFinale
+        ? window.prezzariDatabase.elencoNegoziFinale()
+        : [];
+
+    console.log("Prezzari V30 caricati");
+    console.log("Negozi:", negozi.length);
+    console.log("Oggetti:", window.catalogoOggetti.length);
+};
+
+window.addEventListener("load",()=>{
+    setTimeout(()=>{
+        if(window.prezzariDatabase)
+            window.prezzariDatabase.avviaRelease();
+    },2000);
+});
+
+})();
+</script>
+
+
+<script id="catalogo-collaudo-v31">
+(function(){
+
+window.prezzariCollaudo = {
+    controlli: {
+        database: false,
+        oggetti: 0,
+        negozi: 0
+    }
+};
+
+function eseguiControllo(){
+    if(!window.catalogoOggetti || !window.prezzariDatabase) {
+        console.warn("Database non ancora disponibile");
+        return;
+    }
+
+    window.prezzariCollaudo.controlli.database = true;
+    window.prezzariCollaudo.controlli.oggetti = window.catalogoOggetti.length;
+    window.prezzariCollaudo.controlli.negozi =
+        window.prezzariDatabase.tuttiINegozi
+        ? window.prezzariDatabase.tuttiINegozi().length
+        : 0;
+
+    console.log(
+        "Collaudo Prezzari completato",
+        window.prezzariCollaudo.controlli
+    );
+}
+
+window.addEventListener("load",()=>{
+    setTimeout(eseguiControllo,3000);
+});
+
+})();
+</script>
 
 </body>
 </html>
