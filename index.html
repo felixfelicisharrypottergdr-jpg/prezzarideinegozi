@@ -1244,6 +1244,38 @@ body.narrator-mode .narrator-edit-toggle{
   opacity:.9!important;
 }
 
+
+/* ===== V17 BACKGROUND GENERALE ===== */
+body:not(.location-diagon):not(.location-notturn):not(.location-hogsmeade) .mystic-backdrop{
+  background-image:
+    linear-gradient(180deg,rgba(8,10,12,.28),rgba(8,10,12,.72)),
+    url('https://i.ibb.co/gZG1C9bV/Chat-GPT-Image-16-set-2026-17-53-38.png') !important;
+  background-size:cover !important;
+  background-position:center center !important;
+}
+
+/* Select superiore: correzione testo giallo su bianco */
+.quick-shop select,
+.quick-shop option{
+  color:#26211a !important;
+  background:#f2ead9 !important;
+}
+
+.quick-shop select{
+  border-color:rgba(184,170,130,.35) !important;
+}
+
+.quick-shop select:focus{
+  background:#fff8e8 !important;
+  color:#171311 !important;
+}
+
+/* Anche eventuali menu browser chiari */
+select option{
+  color:#26211a !important;
+  background:#f2ead9 !important;
+}
+
 </style>
 </head>
 <body>
@@ -1622,34 +1654,34 @@ window.CATALOG_DATA = {
      ============================================================ */
   meta: {
     title: "Catalogo del Mondo Magico",
-    version: "1.6-narratore-background-url",
+    version: "1.7-background-location-select",
     currency: "G"
   },
 
   /* NEGOZI: virtuosi = arancione/verde · sinistri = nero/rosso */
   shops: {
     quidditch: {
-      name: "Accessori di Prima Qualità per il Quidditch", slug: "quidditch", tone: "virtuoso", primary: true, accent: "#d57e00",
+      name: "Accessori di Prima Qualità per il Quidditch", slug: "quidditch", location: "diagon", tone: "virtuoso", primary: true, accent: "#d57e00",
       description: "Scope Volanti, equipaggiamento, protezioni e accessori per il volo e il Quidditch."
     },
     calderone: {
-      name: "Il Calderone", slug: "calderone", tone: "virtuoso", primary: true, accent: "#d57e00",
+      name: "Il Calderone", slug: "calderone", location: "diagon", tone: "virtuoso", primary: true, accent: "#d57e00",
       description: "Calderoni e strumenti che forniscono bonus nelle diverse fasi di preparazione delle Pozioni."
     },
     ghirigoro: {
-      name: "Il Ghirigoro", slug: "ghirigoro", tone: "virtuoso", primary: true, accent: "#d57e00",
+      name: "Il Ghirigoro", slug: "ghirigoro", location: "diagon", tone: "virtuoso", primary: true, accent: "#d57e00",
       description: "Manuali, testi scolastici, romanzi e biografie capaci di fornire informazioni e bonus ai Parametri."
     },
     mcclan: {
-      name: "Madama McClan", slug: "mcclan", tone: "virtuoso", primary: true, accent: "#d57e00",
+      name: "Madama McClan", slug: "mcclan", location: "diagon", tone: "virtuoso", primary: true, accent: "#d57e00",
       description: "Abbigliamento per Studenti e Adulti, divise, abiti da lavoro e capi che forniscono bonus in circostanze specifiche."
     },
     obscurus: {
-      name: "Obscurus Books", slug: "obscurus", tone: "sinistro", primary: true, accent: "#e63131",
+      name: "Obscurus Books", slug: "obscurus", location: "diagon", tone: "sinistro", primary: true, accent: "#e63131",
       description: "Libri Oscuri, manuali e testi intrisi di Magia Oscura, con effetti e maledizioni su chi li utilizza."
     },
     ollivander: {
-      name: "Ollivander", slug: "ollivander", tone: "virtuoso", primary: true, accent: "#d57e00",
+      name: "Ollivander", slug: "ollivander", location: "diagon", tone: "virtuoso", primary: true, accent: "#d57e00",
       description: "Bacchette sostitutive e servizi dedicati al recupero o al miglioramento delle prestazioni della Bacchetta."
     },
     serraglio: {
@@ -1657,11 +1689,11 @@ window.CATALOG_DATA = {
       description: "Creature Magiche, animali da compagnia, licenze e strumenti per cura, allevamento e interazione."
     },
     speziale: {
-      name: "Lo Speziale", slug: "speziale", tone: "virtuoso", primary: true, accent: "#d57e00",
+      name: "Lo Speziale", slug: "speziale", location: "diagon", tone: "virtuoso", primary: true, accent: "#d57e00",
       description: "Pozioni e Ingredienti Legali, oltre a Strumenti Medimagici per cura dei Sintomi e Guarigione."
     },
     tirivispi: {
-      name: "Tiri Vispi Weasley", slug: "tirivispi", tone: "virtuoso", primary: true, accent: "#d57e00",
+      name: "Tiri Vispi Weasley", slug: "tirivispi", location: "diagon", tone: "virtuoso", primary: true, accent: "#d57e00",
       description: "Scherzi Magici e Merendine Marinare, tra gli articoli più popolari fra giovani maghi e streghe."
     },
     wingsworth: {
@@ -1705,23 +1737,23 @@ window.CATALOG_DATA = {
       description: "Cancelleria e strumenti per Studenti e Adulti, utili a voti, Punti Post, altri punti o creazione di Oggetti."
     },
     candele: {
-      name: "Candele Velenose per Ogni Occasione", slug: "candele", tone: "sinistro", primary: true, accent: "#e63131",
+      name: "Candele Velenose per Ogni Occasione", slug: "candele", location: "notturn", tone: "sinistro", primary: true, accent: "#e63131",
       description: "Pozioni Fatturanti, Veleni, Pozioni e Ingredienti Illegali, oltre a parte del catalogo legale dello Speziale."
     },
     magianera: {
-      name: "Emporio di Magia Nera", slug: "magianera", tone: "sinistro", primary: true, accent: "#e63131",
+      name: "Emporio di Magia Nera", slug: "magianera", location: "notturn", tone: "sinistro", primary: true, accent: "#e63131",
       description: "Oggetti e strumenti legati alla Magia Nera, spesso destinati a danneggiare bersagli o abilitare Conoscenze Oscure."
     },
     magiesinister: {
-      name: "Magie Sinister", slug: "magiesinister", tone: "sinistro", primary: true, accent: "#e63131",
+      name: "Magie Sinister", slug: "magiesinister", location: "notturn", tone: "sinistro", primary: true, accent: "#e63131",
       description: "Oggetti Magici Oscuri, Bacchette e Pozioni potenziate, oltre a riparazioni di Oggetti Legali e Illegali."
     },
     ragni: {
-      name: "Negozio di Ragni Giganti", slug: "ragni", tone: "sinistro", primary: true, accent: "#e63131",
+      name: "Negozio di Ragni Giganti", slug: "ragni", location: "notturn", tone: "sinistro", primary: true, accent: "#e63131",
       description: "Creature Magiche Illegali in fase di Infanzia provenienti da Riserve clandestine."
     },
     terrifico: {
-      name: "Il Terrifico", slug: "terrifico", tone: "sinistro", primary: true, accent: "#e63131",
+      name: "Il Terrifico", slug: "terrifico", location: "notturn", tone: "sinistro", primary: true, accent: "#e63131",
       description: "Piante Magiche Illegali in fase di Germinazione e prodotti proibiti destinati alla loro coltivazione."
     },
 
@@ -2463,6 +2495,7 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
 
     if(activeShop !== 'all' && DATA.shops[activeShop]){
       const s=DATA.shops[activeShop];
+      if(s.location) setLocationTheme(s.location);
       sub.textContent=s.description;
       eyebrow.textContent=s.tone==='sinistro'?'Negozio sinistro':'Negozio virtuoso';
       collection.textContent=s.name;
@@ -2485,6 +2518,7 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
     /* Nessun negozio specifico selezionato: il tool resta neutrale,
        anche se si stanno filtrando solo Virtuosi o solo Sinistri. */
     setBodyTone('neutral');
+    setLocationTheme(null);
     document.documentElement.style.setProperty('--gold','#b8aa82');
     document.documentElement.style.setProperty('--gold2','#d5ccb5');
     document.documentElement.style.setProperty('--theme-primary','#b8aa82');
