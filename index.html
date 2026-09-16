@@ -3771,5 +3771,58 @@ window.addEventListener("load",()=>{
 })();
 </script>
 
+
+<!-- V37 NARRATORE FIREBASE READY -->
+<script id="catalogo-narratore-v37-firebase">
+(function(){
+
+/*
+ Struttura finale modalità Narratore.
+ Richiede configurazione Firebase reale prima del collegamento definitivo.
+*/
+
+window.narratoreFirebase = {
+    configurato:false,
+
+    login:function(codice){
+        const codiceConfigurato = window.CONFIG_NARRATORE?.codice;
+        if(codiceConfigurato && codice===codiceConfigurato){
+            this.aperto=true;
+            this.apriPannello();
+            return true;
+        }
+        return false;
+    },
+
+    apriPannello:function(){
+        let p=document.getElementById("pannello-narratore-firebase");
+        if(!p){
+            p=document.createElement("div");
+            p.id="pannello-narratore-firebase";
+            p.innerHTML=`
+            <div class="narratore-box">
+                <h2>Modalità Narratore</h2>
+                <p>Editor catalogo oggetti</p>
+                <input id="narratore-id" placeholder="ID oggetto">
+                <button>Carica oggetto</button>
+                <div id="editor-oggetto"></div>
+            </div>`;
+            document.body.appendChild(p);
+        }
+        p.style.display="block";
+    },
+
+    salvaModifica:function(id,dati){
+        /*
+         Collegamento Firebase:
+         updateDoc(documentoOggetto,dati)
+        */
+        console.log("Modifica pronta per Firebase",id,dati);
+    }
+};
+
+})();
+</script>
+
 </body>
 </html>
