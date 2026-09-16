@@ -736,6 +736,11 @@ body.tone-sinistro .product-card::after{background:radial-gradient(circle,rgba(2
   line-height:1.4;
 }
 
+
+/* FIX DEFINITIVO: il pannello filtri deve rispettare hidden */
+#filterPanel[hidden]{display:none !important;}
+#filterPanel:not([hidden]){display:grid;}
+
 </style>
 </head>
 <body>
@@ -883,7 +888,7 @@ body.tone-sinistro .product-card::after{background:radial-gradient(circle,rgba(2
         </span>
       </button>
 
-      <div class="filter-panel advanced-filters" id="filterPanel" hidden>
+      <div class="filter-panel advanced-filters" id="filterPanel" hidden style="display:none">
         <div class="filter-panel-head compact-filter-head">
           <small>Combina liberamente tutti i criteri che ti servono.</small>
           <button id="resetFiltersBtn" class="reset-filters" type="button"><i class="fa-solid fa-rotate-left"></i> Azzera filtri</button>
@@ -1051,7 +1056,7 @@ window.CATALOG_DATA = {
      ============================================================ */
   meta: {
     title: "Catalogo del Mondo Magico",
-    version: "0.10-filtri-chiusi",
+    version: "0.11-fix-hidden-filtri",
     currency: "G"
   },
 
@@ -1661,6 +1666,7 @@ window.CATALOG_DATA = {
     const initialFilterPanel=$('#filterPanel');
     const initialFilterToggle=$('#filtersToggle');
     initialFilterPanel.hidden=true;
+    initialFilterPanel.style.display='none';
     initialFilterToggle.classList.remove('active');
     initialFilterToggle.setAttribute('aria-expanded','false');
 
@@ -2069,7 +2075,13 @@ window.CATALOG_DATA = {
   $('#filtersToggle').addEventListener('click',e=>{
     const p=$('#filterPanel');
     const willOpen=p.hidden;
-    p.hidden=!willOpen;
+    if(willOpen){
+      p.hidden=false;
+      p.style.removeProperty('display');
+    }else{
+      p.hidden=true;
+      p.style.display='none';
+    }
     e.currentTarget.classList.toggle('active',willOpen);
     e.currentTarget.setAttribute('aria-expanded',String(willOpen));
     resizeParent();
