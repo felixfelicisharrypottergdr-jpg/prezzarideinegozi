@@ -3620,5 +3620,28 @@ window.addEventListener("load",()=>{
 })();
 </script>
 
+
+<script id="catalogo-ui-v33-bonifica">
+(function(){
+    function rimuoviPannelloTecnico(){
+        const ids = [
+            "filtri-database-v27"
+        ];
+
+        ids.forEach(id=>{
+            const el=document.getElementById(id);
+            if(el) el.remove();
+        });
+
+        // rimuove eventuali stili associati al vecchio pannello
+        document.querySelectorAll("#filtri-database-v27").forEach(el=>el.remove());
+    }
+
+    window.addEventListener("load",()=>{
+        setTimeout(rimuoviPannelloTecnico,500);
+    });
+})();
+</script>
+
 </body>
 </html>
