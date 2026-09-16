@@ -3643,5 +3643,133 @@ window.addEventListener("load",()=>{
 })();
 </script>
 
+
+<script id="catalogo-ui-v34-pulizia-test">
+(function(){
+    function puliziaTest(){
+        [
+            "filtri-database-v27",
+            "popup-oggetto-dinamico"
+        ].forEach(id=>{
+            const el=document.getElementById(id);
+            if(el) el.remove();
+        });
+
+        // Rimuove eventuali contenitori dinamici di prova rimasti vuoti
+        document.querySelectorAll("[data-vetrina-dinamica],[data-risultati-dinamici]").forEach(el=>{
+            if(!el.innerHTML.trim()) el.style.display="none";
+        });
+    }
+
+    window.addEventListener("load",()=>{
+        setTimeout(puliziaTest,800);
+    });
+})();
+</script>
+
+
+<script id="catalogo-ui-v35-integrazione-reale">
+(function(){
+
+/*
+ V35 - Integrazione interfaccia database
+ Mantiene il motore separato e prepara i contenitori
+ per rendering definitivo.
+*/
+
+window.prezzariDatabase.vetrinaDefinitiva = function(){
+    if(!window.catalogoOggetti) return [];
+
+    return window.prezzariDatabase.casuali(12);
+};
+
+window.prezzariDatabase.risultatiOrdinati = function(lista){
+    return [...lista].sort((a,b)=>{
+        return (a.nome||"").localeCompare(b.nome||"");
+    });
+};
+
+window.prezzariDatabase.statistiche = function(){
+    return {
+        oggetti: window.catalogoOggetti?.length || 0,
+        negozi: window.prezzariDatabase.tuttiINegozi
+            ? window.prezzariDatabase.tuttiINegozi().length
+            : 0
+    };
+};
+
+window.addEventListener("load",()=>{
+    console.log("V35 integrazione database pronta");
+});
+
+})();
+</script>
+
+
+<script id="catalogo-narratore-v36">
+(function(){
+
+/*
+ V36 - Modalità Narratore
+ Pannello di gestione predisposto sul database.
+*/
+
+window.modalitaNarratore = {
+    attiva:false,
+
+    apri:function(){
+        this.attiva=true;
+        console.log("Modalità Narratore attiva");
+    },
+
+    chiudi:function(){
+        this.attiva=false;
+    },
+
+    cercaOggetto:function(id){
+        return window.catalogoOggetti?.find(o=>o.id===id) || null;
+    },
+
+    modificaAnteprima:function(id, dati){
+        if(!this.attiva) return null;
+
+        const oggetto=this.cercaOggetto(id);
+        if(!oggetto) return null;
+
+        Object.keys(dati).forEach(k=>{
+            if(k in oggetto){
+                oggetto[k]=dati[k];
+            }
+        });
+
+        return oggetto;
+    }
+};
+
+window.creaPannelloNarratore=function(){
+    if(document.getElementById("pannello-narratore-v36")) return;
+
+    const p=document.createElement("div");
+    p.id="pannello-narratore-v36";
+    p.style.display="none";
+    p.innerHTML=`
+        <h2>Modalità Narratore</h2>
+        <p>Modifica oggetti del catalogo.</p>
+        <input placeholder="ID oggetto">
+        <button>Carica</button>
+        <div id="editor-narratore"></div>
+    `;
+
+    document.body.appendChild(p);
+};
+
+window.addEventListener("load",()=>{
+    window.creaPannelloNarratore();
+    console.log("V36 Narratore predisposto");
+});
+
+})();
+</script>
+
 </body>
 </html>
