@@ -1018,8 +1018,8 @@ body.location-hogsmeade{
   font-size:10px;
 }
 
-/* Staff edit */
-.staff-edit-toggle{
+/* Narratore edit */
+.narrator-edit-toggle{
   position:absolute;
   right:18px;
   top:18px;
@@ -1032,12 +1032,12 @@ body.location-hogsmeade{
   opacity:.35;
   cursor:pointer;
 }
-.staff-edit-toggle:hover{
+.narrator-edit-toggle:hover{
   opacity:1;
   color:#d8c59b;
 }
 
-.staff-editor{
+.narrator-editor{
   margin-top:15px;
   padding:15px;
   border-radius:15px;
@@ -1045,15 +1045,15 @@ body.location-hogsmeade{
   border:1px dashed rgba(184,170,130,.25);
 }
 
-.staff-editor label{
+.narrator-editor label{
   display:block;
   margin-bottom:10px;
   color:#aaa;
   font-size:9px;
 }
 
-.staff-editor input,
-.staff-editor textarea{
+.narrator-editor input,
+.narrator-editor textarea{
   width:100%;
   margin-top:5px;
   padding:9px;
@@ -1063,7 +1063,7 @@ body.location-hogsmeade{
   border-radius:8px;
 }
 
-.staff-save{
+.narrator-save{
   margin-top:10px;
   padding:9px 14px;
   border-radius:10px;
@@ -1087,13 +1087,13 @@ body.location-hogsmeade{
 
 /* ===== V14 · ASSET SFONDI REALI ===== */
 body.location-diagon{
-  --location-bg:url('diagon.png');
+  --location-bg:url('https://i.ibb.co/fVG26krL/diagon.png');
 }
 body.location-notturn{
-  --location-bg:url('notturn.png');
+  --location-bg:url('https://i.ibb.co/WNkFdSjb/notturn.png');
 }
 body.location-hogsmeade{
-  --location-bg:url('hogsmeade.png');
+  --location-bg:url('https://i.ibb.co/ym8SKcRb/hogsmeade.png');
 }
 
 .mystic-backdrop{
@@ -1140,13 +1140,13 @@ body.location-hogsmeade{
   line-height:1.5;
 }
 
-/* Staff mode */
-body.staff-mode .staff-edit-toggle{
+/* Narratore mode */
+body.narrator-mode .narrator-edit-toggle{
   opacity:.85;
   display:grid;
 }
 
-.staff-edit-toggle{
+.narrator-edit-toggle{
   display:none;
 }
 
@@ -1159,9 +1159,9 @@ body.staff-mode .staff-edit-toggle{
     radial-gradient(circle at 18% 10%,rgba(255,224,161,.10),transparent 18rem) !important;
 }
 
-body.location-diagon{--location-bg:url('diagon.png') !important;}
-body.location-notturn{--location-bg:url('notturn.png') !important;}
-body.location-hogsmeade{--location-bg:url('hogsmeade.png') !important;}
+body.location-diagon{--location-bg:url('https://i.ibb.co/fVG26krL/diagon.png') !important;}
+body.location-notturn{--location-bg:url('https://i.ibb.co/WNkFdSjb/notturn.png') !important;}
+body.location-hogsmeade{--location-bg:url('https://i.ibb.co/ym8SKcRb/hogsmeade.png') !important;}
 
 /* fallback: il tema non deve sparire se il browser non carica l'asset */
 body.location-diagon .mystic-backdrop{
@@ -1200,12 +1200,12 @@ option{
 }
 
 /* ===== STAFF ===== */
-body.staff-mode .staff-edit-toggle{
+body.narrator-mode .narrator-edit-toggle{
   display:grid !important;
   opacity:.9 !important;
 }
 
-.staff-access{
+.narrator-access{
   position:fixed;
   right:15px;
   bottom:15px;
@@ -1220,15 +1220,28 @@ body.staff-mode .staff-edit-toggle{
   box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 
-.staff-editor-open{
+.narrator-editor-open{
   display:block;
 }
 
 @media(max-width:700px){
-  .staff-access{
+  .narrator-access{
     bottom:10px;
     right:10px;
   }
+}
+
+
+/* ===== V16 NARRATORE ===== */
+.narrator-access{
+  display:flex!important;
+  align-items:center;
+  gap:7px;
+}
+body.narrator-mode .staff-edit-toggle,
+body.narrator-mode .narrator-edit-toggle{
+  display:grid!important;
+  opacity:.9!important;
 }
 
 </style>
@@ -1609,7 +1622,7 @@ window.CATALOG_DATA = {
      ============================================================ */
   meta: {
     title: "Catalogo del Mondo Magico",
-    version: "1.5-fix-sfondo-staff-colori",
+    version: "1.6-narratore-background-url",
     currency: "G"
   },
 
@@ -2120,22 +2133,22 @@ window.CATALOG_DATA = {
 
 
 /* ===== STAFF EDIT MODE =====
-   Attivazione prevista tramite chiave staff.
+   Attivazione prevista tramite chiave narrator.
    Le modifiche vengono salvate nel database oggetti.
 */
-const STAFF_MODE_KEY = 'prezzari_staff_mode';
+const NARRATOR_MODE_KEY = 'prezzari_narrator_mode';
 
-function isStaffMode(){
-  return localStorage.getItem(STAFF_MODE_KEY)==='true';
+function isNarratoreMode(){
+  return localStorage.getItem(NARRATOR_MODE_KEY)==='true';
 }
 
-function enableStaffMode(){
-  localStorage.setItem(STAFF_MODE_KEY,'true');
+function enableNarratoreMode(){
+  localStorage.setItem(NARRATOR_MODE_KEY,'true');
   location.reload();
 }
 
-function disableStaffMode(){
-  localStorage.removeItem(STAFF_MODE_KEY);
+function disableNarratoreMode(){
+  localStorage.removeItem(NARRATOR_MODE_KEY);
   location.reload();
 }
 
@@ -2164,22 +2177,22 @@ function setLocationTheme(location){
 }
 
 
-const staffAccess = document.getElementById('staffAccess');
+const narratorAccess = document.getElementById('narratorAccess');
 
-if(staffAccess){
-  staffAccess.addEventListener('click',()=>{
-    const pass = prompt('Password staff prezzari:');
+if(narratorAccess){
+  narratorAccess.addEventListener('click',()=>{
+    const pass = prompt('Password Narratore prezzari:');
     if(pass === 'ADMIN'){
-      document.body.classList.add('staff-mode');
-      localStorage.setItem('prezzari_staff_mode','true');
-      alert('Modalità staff attivata');
+      document.body.classList.add('narrator-mode');
+      localStorage.setItem('prezzari_narrator_mode','true');
+      alert('Modalità Narratore attivata');
       location.reload();
     }
   });
 }
 
-if(localStorage.getItem('prezzari_staff_mode')==='true'){
-  document.body.classList.add('staff-mode');
+if(localStorage.getItem('prezzari_narrator_mode')==='true'){
+  document.body.classList.add('narrator-mode');
 }
 
 </script>
@@ -2824,8 +2837,8 @@ if(localStorage.getItem('prezzari_staff_mode')==='true'){
 -->
 
 
-<button class="staff-access" id="staffAccess" type="button">
-<i class="fa-solid fa-key"></i> Staff
+<button class="narrator-access" id="narratorAccess" type="button">
+<i class="fa-solid fa-key"></i> Narratore
 </button>
 
 </body>
