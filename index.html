@@ -741,6 +741,142 @@ body.tone-sinistro .product-card::after{background:radial-gradient(circle,rgba(2
 #filterPanel[hidden]{display:none !important;}
 #filterPanel:not([hidden]){display:grid;}
 
+
+/* ===== V12 · TESTATA COMPATTA + GUIDA LATERALE + VETRINA HOME ===== */
+.masthead{
+  min-height:155px !important;
+  grid-template-columns:120px minmax(0,1fr) 92px !important;
+  padding:20px 26px !important;
+  margin-bottom:10px !important;
+  clip-path:polygon(0 0,97% 0,100% 18%,100% 100%,3% 100%,0 82%) !important;
+}
+.masthead-rune{width:100px !important;height:100px !important;font-size:28px !important}
+.masthead-rune>i{
+  width:52px !important;height:52px !important;font-size:20px !important;
+  box-shadow:0 0 0 6px rgba(216,187,121,.045),0 12px 26px rgba(0,0,0,.32) !important
+}
+.ring-b{inset:20px !important}
+.masthead h1{font-size:clamp(34px,4.4vw,56px) !important}
+.masthead-stat{width:76px !important;height:76px !important}
+.masthead-stat strong{font-size:27px !important}
+.masthead-stat small{font-size:6px !important;letter-spacing:.16em !important;margin-top:4px !important}
+.kicker{font-size:8px !important}
+#pageSubtitle{font-size:9px !important;margin-top:6px !important}
+
+/* La vecchia guida introduttiva non occupa più il flusso principale. */
+.preface-panel{display:none !important}
+
+/* Ricerca / salto negozio / guida. */
+.finder-main{
+  grid-template-columns:minmax(0,1fr) minmax(210px,290px) 92px !important;
+  gap:9px !important;
+}
+.guide-open-btn{
+  min-height:54px;
+  border:1px solid rgba(184,170,130,.18);
+  border-radius:15px;
+  background:linear-gradient(180deg,#21282a,#171c1e);
+  color:#d9d0bd;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  cursor:pointer;
+  font:700 9px Inter;
+  letter-spacing:.04em;
+  transition:.2s ease;
+}
+.guide-open-btn i{color:#d6c49c}
+.guide-open-btn:hover{
+  border-color:rgba(214,196,156,.34);
+  color:#f0e8d8;
+  transform:translateY(-1px);
+}
+
+/* Guida laterale */
+.guide-backdrop{
+  position:fixed;inset:0;z-index:1190;
+  background:rgba(3,5,6,.52);
+  backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease;
+}
+.guide-backdrop.open{opacity:1;pointer-events:auto}
+.guide-drawer{
+  position:fixed;z-index:1200;top:0;right:0;
+  width:min(520px,94vw);height:100dvh;
+  overflow:auto;
+  transform:translateX(104%);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  background:linear-gradient(180deg,rgba(31,35,37,.99),rgba(12,15,16,.995)),#111516;
+  border-left:1px solid rgba(184,170,130,.18);
+  box-shadow:-30px 0 80px rgba(0,0,0,.42);
+  padding:22px 20px 32px;
+}
+.guide-drawer.open{transform:translateX(0)}
+.guide-close{
+  position:sticky;top:0;float:right;z-index:3;
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(184,170,130,.18);
+  background:#171c1e;color:#d7cbae;cursor:pointer;
+  display:grid;place-items:center;
+}
+.guide-head{
+  padding:12px 50px 17px 3px;
+  border-bottom:1px solid rgba(184,170,130,.12);
+  margin-bottom:14px;
+}
+.guide-head h2{
+  margin:7px 0 0;
+  font-family:'magic','MedievalSharp',serif;
+  font-weight:normal;font-size:31px;line-height:1.05;color:#efe5d4;
+}
+.guide-head p{margin:8px 0 0;color:#969e98;font:500 9px/1.6 Inter}
+.guide-drawer .intro-grid,
+.guide-drawer .intro-grid-top{
+  display:grid;
+  grid-template-columns:1fr !important;
+  gap:10px;
+  margin:0 0 10px;
+}
+.guide-drawer .intro-card{background:rgba(255,255,255,.018)}
+
+/* Vetrina casuale in home. */
+.home-showcase-note{
+  display:none;
+  align-items:center;
+  gap:8px;
+  color:#808883;
+  font:600 8px Inter;
+  margin-top:5px;
+}
+body.home-showcase .home-showcase-note{display:flex}
+.home-showcase-note i{color:#d6c49c}
+.home-refresh{
+  margin-left:auto;
+  border:1px solid rgba(184,170,130,.14);
+  background:rgba(255,255,255,.02);
+  color:#aaa397;
+  border-radius:9px;
+  padding:7px 9px;
+  cursor:pointer;
+  font:600 8px Inter;
+}
+.home-refresh:hover{color:#eee4d2;border-color:rgba(184,170,130,.28)}
+
+@media(max-width:760px){
+  .masthead{
+    grid-template-columns:82px minmax(0,1fr) !important;
+    padding:18px 16px !important;
+  }
+  .masthead-rune{width:76px !important;height:76px !important}
+  .masthead-stat{display:none !important}
+  .masthead h1{font-size:38px !important}
+  .finder-main{grid-template-columns:1fr 82px !important}
+  .quick-shop{grid-column:1/-1 !important}
+  .guide-open-btn{grid-column:2;grid-row:1}
+}
+
 </style>
 </head>
 <body>
@@ -848,7 +984,9 @@ body.tone-sinistro .product-card::after{background:radial-gradient(circle,rgba(2
             <option value="all">Vai al negozio…</option>
           </select>
         </label>
-        
+        <button id="guideOpen" class="guide-open-btn" type="button" aria-label="Apri guida ai prezzari">
+          <i class="fa-solid fa-scroll"></i><span>Guida</span>
+        </button>
       </div>
 
       <div class="district-nav" id="districtNav" aria-label="Tipo di negozio">
@@ -1010,6 +1148,11 @@ body.tone-sinistro .product-card::after{background:radial-gradient(circle,rgba(2
       <div>
         <p class="eyebrow" id="collectionEyebrow">Catalogo generale</p>
         <h2 id="collectionTitle">Oggetti in evidenza</h2>
+        <div class="home-showcase-note" id="homeShowcaseNote">
+          <i class="fa-solid fa-wand-sparkles"></i>
+          <span>La vetrina cambia a ogni apertura per farti scoprire offerte diverse.</span>
+          <button id="homeRefresh" class="home-refresh" type="button"><i class="fa-solid fa-shuffle"></i> Cambia</button>
+        </div>
       </div>
       <div class="view-actions">
         <button class="view-btn active" id="gridBtn" title="Vista schede"><i class="fa-solid fa-grip"></i></button>
@@ -1037,6 +1180,62 @@ body.tone-sinistro .product-card::after{background:radial-gradient(circle,rgba(2
     </footer>
   </main>
 
+
+  <div class="guide-backdrop" id="guideBackdrop"></div>
+  <aside class="guide-drawer" id="guideDrawer" aria-hidden="true">
+    <button class="guide-close" id="guideClose" type="button" aria-label="Chiudi guida"><i class="fa-solid fa-xmark"></i></button>
+    <div class="guide-head">
+      <div class="kicker"><span></span> Guida del Commercio <span></span></div>
+      <h2>Orientarsi tra i Prezzari</h2>
+      <p>Regole essenziali per capire dove comprare, come funzionano le varianti e come si attivano gli oggetti.</p>
+    </div>
+    <div class="guide-body">
+      
+        <div class="intro-grid intro-grid-top">
+          <article class="intro-card route-card">
+            <h3><i class="fa-solid fa-map"></i> Indice rapido</h3>
+            <div class="route-list">
+              <span><i class="fa-solid fa-street-view"></i> Diagon Alley</span>
+              <span><i class="fa-solid fa-village"></i> Hogsmeade</span>
+              <span><i class="fa-solid fa-moon"></i> Notturn Alley</span>
+            </div>
+            <p>Le descrizioni complete dei singoli negozi restano consultabili nelle rispettive sezioni del forum. Qui trovi i prezzari e le specifiche degli oggetti acquistabili.</p>
+          </article>
+          <article class="intro-card note-card">
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Cose da ricordare</h3>
+            <ul>
+              <li><strong>Virtuosi</strong> = merce legale, ambientazione arancione.</li>
+              <li><strong>Sinistri</strong> = merce illegale o proibita, ambientazione nera e rossa.</li>
+              <li><strong>Venduto anche…</strong> indica lo stesso oggetto disponibile in altri negozi.</li>
+              <li>Le versioni del <strong>Mercato degli Elfi</strong> costano meno ma sono più deboli o durano meno.</li>
+              <li>Le varianti dei negozi <strong>Sinistri</strong> spesso costano di più, sono più forti e possono costituire <strong>Azione Illegale</strong> <i class="fa-solid fa-ban"></i>.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="intro-grid">
+          <article class="intro-card">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Come si acquista</h3>
+            <p>Per acquistare un oggetto basta segnalarlo nella propria <strong>Lista della Spesa</strong>. Se un oggetto ha più tipologie o varianti, va specificato quale si desidera acquistare.</p>
+            <p>Gli acquisti possono essere ruolati anche solo come colore ONGame: l'effettivo ottenimento dell'oggetto avviene quando viene speso il costo in Galeoni tramite Commercio.</p>
+          </article>
+          <article class="intro-card">
+            <h3><i class="fa-solid fa-hat-wizard"></i> Studenti e acquisti a distanza</h3>
+            <p>Se uno Studente non può raggiungere Diagon o Notturn Alley durante l'anno, si può assumere che ordini l'oggetto per corrispondenza e lo riceva per posta, da background o come nota di colore nelle role.</p>
+          </article>
+          <article class="intro-card activation-card">
+            <h3><i class="fa-solid fa-bolt"></i> Tipi di attivazione</h3>
+            <div class="activation-list">
+              <span><strong>1 azione</strong><small>Si attiva ONGame durante la role e consuma un'azione.</small></span>
+              <span><strong>OFF</strong><small>Si considera attivo OFFGame, senza bisogno di ruolarne l'attivazione.</small></span>
+              <span><strong>1 azione se in role, o OFF</strong><small>Può essere usato in entrambi i modi, a scelta del PG.</small></span>
+            </div>
+          </article>
+        </div>
+      
+    </div>
+  </aside>
+
   <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
   <aside class="detail-drawer" id="detailDrawer" aria-hidden="true">
     <button class="drawer-close" id="drawerClose" type="button" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button>
@@ -1056,7 +1255,7 @@ window.CATALOG_DATA = {
      ============================================================ */
   meta: {
     title: "Catalogo del Mondo Magico",
-    version: "0.11-fix-hidden-filtri",
+    version: "1.0-vetrina-random-guida-laterale",
     currency: "G"
   },
 
@@ -1588,6 +1787,11 @@ window.CATALOG_DATA = {
   const filterCountBadge = $('#filterCountBadge');
   const introToggle = $('#introToggle');
   const introPanel = $('#introPanel');
+  const guideOpen = $('#guideOpen');
+  const guideDrawer = $('#guideDrawer');
+  const guideBackdrop = $('#guideBackdrop');
+  const guideClose = $('#guideClose');
+  const homeRefresh = $('#homeRefresh');
   const rail = $('#shopRail');
   const districtNav = $('#districtNav');
   const count = $('#resultCount');
@@ -1662,7 +1866,77 @@ window.CATALOG_DATA = {
     };
   }
 
+  const HOME_SHOWCASE_SIZE = 9;
+  let homeShowcaseIds = [];
+
+  function isPristineHome(){
+    return activeShop==='all' &&
+      activeTone==='all' &&
+      search.value.trim()==='' &&
+      searchField.value==='all' &&
+      category.value==='all' &&
+      legality.value==='all' &&
+      functionFilter.value==='all' &&
+      activationFilter.value==='all' &&
+      effectFilter.value.trim()==='' &&
+      usesFilter.value.trim()==='' &&
+      minPriceFilter.value==='' &&
+      maxPriceFilter.value==='' &&
+      variantFilter.value==='all' &&
+      sort.value==='featured';
+  }
+
+  function shuffled(arr){
+    const out=[...arr];
+    for(let i=out.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [out[i],out[j]]=[out[j],out[i]];
+    }
+    return out;
+  }
+
+  function buildHomeShowcase(){
+    const groups=new Map();
+
+    DATA.items.forEach(item=>{
+      const key=item.shop || 'misc';
+      if(!groups.has(key)) groups.set(key,[]);
+      groups.get(key).push(item);
+    });
+
+    const chosen=[];
+    shuffled([...groups.keys()]).forEach(shopId=>{
+      const group=groups.get(shopId);
+      if(group?.length) chosen.push(shuffled(group)[0]);
+    });
+
+    if(chosen.length < HOME_SHOWCASE_SIZE){
+      const used=new Set(chosen.map(x=>x.id));
+      const rest=shuffled(DATA.items.filter(x=>!used.has(x.id)));
+      chosen.push(...rest.slice(0,HOME_SHOWCASE_SIZE-chosen.length));
+    }
+
+    homeShowcaseIds=shuffled(chosen)
+      .slice(0,Math.min(HOME_SHOWCASE_SIZE,DATA.items.length))
+      .map(x=>x.id);
+  }
+
+  function openGuide(){
+    guideDrawer.classList.add('open');
+    guideBackdrop.classList.add('open');
+    guideDrawer.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+
+  function closeGuide(){
+    guideDrawer.classList.remove('open');
+    guideBackdrop.classList.remove('open');
+    guideDrawer.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+
   function init(){
+    buildHomeShowcase();
     const initialFilterPanel=$('#filterPanel');
     const initialFilterToggle=$('#filtersToggle');
     initialFilterPanel.hidden=true;
@@ -1933,6 +2207,14 @@ window.CATALOG_DATA = {
     else out.sort((a,b)=>(b.featured||0)-(a.featured||0)||a.name.localeCompare(b.name,'it'));
 
     activeFilterCount();
+
+    if(isPristineHome()){
+      const order=new Map(homeShowcaseIds.map((id,index)=>[id,index]));
+      out=out
+        .filter(item=>order.has(item.id))
+        .sort((a,b)=>order.get(a.id)-order.get(b.id));
+    }
+
     return out;
   }
 
@@ -1972,6 +2254,14 @@ window.CATALOG_DATA = {
 
   function render(){
     const items=filtered();
+    const pristine=isPristineHome();
+    document.body.classList.toggle('home-showcase',pristine);
+
+    if(pristine){
+      $('#collectionEyebrow').textContent='Vetrina magica';
+      $('#collectionTitle').textContent='Scoperte dal Mondo Magico';
+    }
+
     count.textContent=shopContextCount();
     cards.innerHTML=items.map(card).join('');
     empty.hidden=items.length>0;
@@ -2087,18 +2377,19 @@ window.CATALOG_DATA = {
     resizeParent();
   });
 
-  introToggle.addEventListener('click',e=>{
-    const willOpen=introPanel.hidden;
-    introPanel.hidden=!willOpen;
-    e.currentTarget.classList.toggle('active',willOpen);
-    e.currentTarget.setAttribute('aria-expanded',String(willOpen));
-    resizeParent();
+  if(introToggle) introToggle.addEventListener('click',openGuide);
+  guideOpen.addEventListener('click',openGuide);
+  guideClose.addEventListener('click',closeGuide);
+  guideBackdrop.addEventListener('click',closeGuide);
+  homeRefresh.addEventListener('click',()=>{
+    buildHomeShowcase();
+    render();
   });
   $('#railLeft').addEventListener('click',()=>rail.scrollBy({left:-320,behavior:'smooth'}));
   $('#railRight').addEventListener('click',()=>rail.scrollBy({left:320,behavior:'smooth'}));
   cards.addEventListener('click',e=>{const c=e.target.closest('[data-open]');if(c)openItem(c.dataset.open)});
   cards.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-open]')){e.preventDefault();openItem(e.target.closest('[data-open]').dataset.open)}});
-  $('#drawerClose').addEventListener('click',closeDrawer);backdrop.addEventListener('click',closeDrawer);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('open'))closeDrawer()});
+  $('#drawerClose').addEventListener('click',closeDrawer);backdrop.addEventListener('click',closeDrawer);document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(drawer.classList.contains('open'))closeDrawer();if(guideDrawer.classList.contains('open'))closeGuide();}});
   $('#gridBtn').addEventListener('click',()=>setView('grid'));$('#listBtn').addEventListener('click',()=>setView('list'));$('#resetBtn').addEventListener('click',reset);window.addEventListener('resize',resizeParent);window.addEventListener('load',resizeParent);
   init();
 })();
