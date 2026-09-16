@@ -3578,5 +3578,47 @@ window.addEventListener("load",()=>{
 })();
 </script>
 
+
+<style id="catalogo-ui-v32-cleanup">
+#filtri-database-v27 {
+    position: relative !important;
+    width: min(1200px,95%) !important;
+    margin: 10px auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    color: #f3e5c0 !important;
+    font-family: inherit;
+}
+
+#filtri-database-v27 .filtri-titolo {
+    cursor:pointer;
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:12px;
+    background:rgba(20,15,10,.8);
+    border:1px solid #8b6a35;
+    color:#f5d98a;
+}
+
+#filtri-database-v27 .filtri-contenuto {
+    margin-top:8px;
+    padding:12px;
+    border-radius:12px;
+    background:rgba(23,26,27,.95);
+    border:1px solid #8b6a35;
+}
+</style>
+<script id="catalogo-ui-v32-cleanup">
+(function(){
+    window.addEventListener("load",()=>{
+        const f=document.getElementById("filtri-database-v27");
+        if(f){
+            const c=f.querySelector(".filtri-contenuto");
+            if(c) c.style.display="none";
+        }
+    });
+})();
+</script>
+
 </body>
 </html>
