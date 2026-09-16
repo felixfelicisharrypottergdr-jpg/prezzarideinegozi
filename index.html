@@ -1150,6 +1150,87 @@ body.staff-mode .staff-edit-toggle{
   display:none;
 }
 
+
+/* ===== V15 FIX SFONDI ===== */
+.mystic-backdrop{
+  background-image:
+    linear-gradient(180deg,rgba(8,10,12,.30),rgba(8,10,12,.78)),
+    var(--location-bg, none),
+    radial-gradient(circle at 18% 10%,rgba(255,224,161,.10),transparent 18rem) !important;
+}
+
+body.location-diagon{--location-bg:url('diagon.png') !important;}
+body.location-notturn{--location-bg:url('notturn.png') !important;}
+body.location-hogsmeade{--location-bg:url('hogsmeade.png') !important;}
+
+/* fallback: il tema non deve sparire se il browser non carica l'asset */
+body.location-diagon .mystic-backdrop{
+  background-position:center;
+}
+
+/* ===== V15 COLORI NEGOZI ===== */
+.shop-pill,
+.shop-button,
+.quick-shop option{
+  color:#e9dfcc !important;
+}
+
+.shop-pill.virtuoso,
+.shop-button.virtuoso{
+  background:linear-gradient(180deg,rgba(213,126,0,.35),rgba(213,126,0,.12)) !important;
+  border-color:rgba(213,126,0,.45) !important;
+}
+
+.shop-pill.sinistro,
+.shop-button.sinistro{
+  background:linear-gradient(180deg,rgba(180,35,35,.45),rgba(90,10,10,.18)) !important;
+  border-color:rgba(230,49,49,.45) !important;
+}
+
+.shop-pill:hover,
+.shop-button:hover{
+  filter:brightness(1.25);
+}
+
+/* Niente testo nero su superfici scure */
+button,
+select,
+option{
+  color:#e8deca;
+}
+
+/* ===== STAFF ===== */
+body.staff-mode .staff-edit-toggle{
+  display:grid !important;
+  opacity:.9 !important;
+}
+
+.staff-access{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  z-index:2000;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid rgba(184,170,130,.3);
+  background:#181d1f;
+  color:#d8c59b;
+  cursor:pointer;
+  font:700 9px Inter;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+.staff-editor-open{
+  display:block;
+}
+
+@media(max-width:700px){
+  .staff-access{
+    bottom:10px;
+    right:10px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1528,7 +1609,7 @@ window.CATALOG_DATA = {
      ============================================================ */
   meta: {
     title: "Catalogo del Mondo Magico",
-    version: "1.4-in-evidenza-location-assets",
+    version: "1.5-fix-sfondo-staff-colori",
     currency: "G"
   },
 
@@ -1993,7 +2074,7 @@ window.CATALOG_DATA = {
       legality: "misto",
       featured: 10,
       price: 500,
-      function: "Passiva",
+      function: "Passivo",
       activation: "OFF",
       uses: "Finché non distrutta/smarrita",
       effect: "Consente ricerca avanzata, allevamento e coltivazione; fino a 15 posti.",
@@ -2080,6 +2161,25 @@ function setLocationTheme(location){
   if(location==='diagon') document.body.classList.add('location-diagon');
   if(location==='notturn') document.body.classList.add('location-notturn');
   if(location==='hogsmeade') document.body.classList.add('location-hogsmeade');
+}
+
+
+const staffAccess = document.getElementById('staffAccess');
+
+if(staffAccess){
+  staffAccess.addEventListener('click',()=>{
+    const pass = prompt('Password staff prezzari:');
+    if(pass === 'ADMIN'){
+      document.body.classList.add('staff-mode');
+      localStorage.setItem('prezzari_staff_mode','true');
+      alert('Modalità staff attivata');
+      location.reload();
+    }
+  });
+}
+
+if(localStorage.getItem('prezzari_staff_mode')==='true'){
+  document.body.classList.add('staff-mode');
 }
 
 </script>
@@ -2262,10 +2362,13 @@ function setLocationTheme(location){
     initialFilterToggle.classList.remove('active');
     initialFilterToggle.setAttribute('aria-expanded','false');
 
-    Object.values(DATA.shops).filter(s=>s.primary!==false).forEach(s=>{
-      quickShop.add(new Option(s.name,s.slug));
-      shopFilter.add(new Option(s.name,s.slug));
-    });
+    Object.values(DATA.shops)
+      .filter(s=>s.primary!==false)
+      .sort((a,b)=>a.name.localeCompare(b.name,'it'))
+      .forEach(s=>{
+        quickShop.add(new Option(s.name,s.slug));
+        shopFilter.add(new Option(s.name,s.slug));
+      });
     quickShop.value = activeShop;
     shopFilter.value = activeShop;
 
@@ -2719,6 +2822,11 @@ function setLocationTheme(location){
      notturn.png = Notturn Alley
      hogsmeade.png = Hogsmeade
 -->
+
+
+<button class="staff-access" id="staffAccess" type="button">
+<i class="fa-solid fa-key"></i> Staff
+</button>
 
 </body>
 </html>
