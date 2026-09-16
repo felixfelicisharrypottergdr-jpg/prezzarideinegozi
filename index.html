@@ -1,0 +1,2096 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Prezzari dei Negozi · Felix Felicis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=MedievalSharp&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+
+  @font-face{
+    font-family:'magic';
+    src:url('https://dl.dropboxusercontent.com/scl/fi/nbzmrri4qyvc3tzx96911/HarryBeastDisplay-Regular.woff2?rlkey=he290voe32k33gowug23c1osc&st=nj9fgly1') format('woff2');
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+  }
+
+:root{
+  --bg:#0c0f10;
+  --bg2:#121718;
+  --panel:#171d1f;
+  --panel2:#1d2426;
+  --line:rgba(226,207,157,.17);
+  --line2:rgba(226,207,157,.31);
+  --text:#f1ede2;
+  --muted:#a6aba5;
+  --gold:#d6bb79;
+  --gold2:#f3e1aa;
+  --red:#c96969;
+  --green:#7ca28a;
+  --shadow:0 22px 70px rgba(0,0,0,.45);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:
+  radial-gradient(circle at 12% 4%,rgba(192,158,82,.14),transparent 32rem),
+  radial-gradient(circle at 89% 26%,rgba(76,103,104,.13),transparent 34rem),
+  linear-gradient(180deg,#121718 0%,#0b0e0f 72%,#090b0c 100%);
+  color:var(--text);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:
+  linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to bottom,#000 0%,transparent 80%);opacity:.55}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+.page-glow{position:fixed;border-radius:50%;filter:blur(85px);pointer-events:none;opacity:.14;z-index:0}.glow-one{width:340px;height:340px;background:#9a7e3e;left:-170px;top:18%}.glow-two{width:440px;height:440px;background:#465e63;right:-220px;top:48%}
+.catalog-shell{width:min(1280px,calc(100% - 28px));margin:0 auto;padding:18px 0 52px;position:relative;z-index:1}
+
+/* HERO */
+.masthead{min-height:250px;position:relative;display:grid;grid-template-columns:210px 1fr 150px;align-items:center;gap:12px;padding:34px 38px;margin-bottom:14px;border:1px solid var(--line);overflow:hidden;background:
+  radial-gradient(circle at 15% 45%,rgba(216,187,121,.12),transparent 22rem),
+  linear-gradient(120deg,rgba(34,42,44,.98),rgba(18,23,25,.97) 58%,rgba(12,15,16,.99));
+  box-shadow:var(--shadow);clip-path:polygon(0 0,96% 0,100% 17%,100% 100%,4% 100%,0 83%)}
+.masthead::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,transparent 0 63%,rgba(216,187,121,.03) 63% 63.2%,transparent 63.2%),
+  radial-gradient(circle at 82% 50%,transparent 0 96px,rgba(216,187,121,.08) 97px 98px,transparent 99px 122px,rgba(216,187,121,.035) 123px 124px,transparent 125px);pointer-events:none}
+.masthead::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.45}
+.masthead-rune{position:relative;width:170px;height:170px;display:grid;place-items:center;margin:auto;color:var(--gold2);font-size:44px}
+.rune-ring{position:absolute;inset:8px;border:1px solid rgba(216,187,121,.22);border-radius:50%}.ring-a::before,.ring-a::after,.ring-b::before,.ring-b::after{content:"✦";position:absolute;color:rgba(216,187,121,.55);font-size:12px}.ring-a::before{top:-8px;left:50%;transform:translateX(-50%)}.ring-a::after{bottom:-8px;left:50%;transform:translateX(-50%)}.ring-b{inset:28px;border-style:dashed;animation:spin 28s linear infinite}.ring-b::before{left:-6px;top:50%;transform:translateY(-50%)}.ring-b::after{right:-6px;top:50%;transform:translateY(-50%)}.masthead-rune>i{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 28%,#f5e7bc,#c19d51 58%,#7b6132);color:#141719;box-shadow:0 0 0 8px rgba(216,187,121,.055),0 16px 36px rgba(0,0,0,.36)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.kicker{display:flex;align-items:center;gap:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.24em;font-size:10px;font-weight:700}.kicker span{width:26px;height:1px;background:var(--gold);opacity:.55}
+.masthead h1{font-family:"MedievalSharp",serif;font-size:clamp(40px,5.4vw,68px);line-height:.88;letter-spacing:-.035em;margin:9px 0 10px;font-weight:700;text-shadow:0 2px 18px rgba(0,0,0,.22)}
+.masthead-copy>p{margin:0;color:#c8c6bd;font-family:"Cormorant Garamond",serif;font-size:20px;letter-spacing:.01em}
+.masthead-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.masthead-tags span{border:1px solid var(--line);background:rgba(255,255,255,.025);padding:7px 10px;border-radius:999px;color:#a9aaa4;text-transform:uppercase;letter-spacing:.08em;font-size:9px}.masthead-tags i{color:var(--gold);margin-right:5px}
+.masthead-stat{position:relative;justify-self:end;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;align-content:center;border:1px solid rgba(216,187,121,.22);background:rgba(8,11,12,.35);box-shadow:inset 0 0 30px rgba(216,187,121,.035)}.masthead-stat strong{font-family:"Cormorant Garamond",serif;font-size:38px;line-height:.8;color:var(--gold2)}.masthead-stat small{text-transform:uppercase;letter-spacing:.2em;font-size:8px;color:#8e958f;margin-top:7px}.stat-orbit{position:absolute;inset:-9px;border:1px dashed rgba(216,187,121,.18);border-radius:50%;animation:spin 24s linear infinite}
+
+/* FINDER */
+.finder{position:sticky;top:7px;z-index:25;border:1px solid var(--line);border-radius:22px;background:rgba(13,17,18,.91);backdrop-filter:blur(18px);box-shadow:0 14px 40px rgba(0,0,0,.28);padding:11px;margin-bottom:28px}.finder-main{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,280px) auto;gap:9px}.magic-search{min-height:54px;display:grid;grid-template-columns:34px 1fr 32px;align-items:center;border-radius:15px;border:1px solid rgba(216,187,121,.16);background:linear-gradient(180deg,#21282a,#1a2022);padding:0 10px 0 14px;transition:.2s}.magic-search:focus-within{border-color:rgba(216,187,121,.48);box-shadow:0 0 0 3px rgba(216,187,121,.06)}.magic-search>i{color:var(--gold);font-size:15px}.magic-search input{width:100%;border:0;outline:0;background:transparent;color:var(--text);font:500 13px Inter}.magic-search input::placeholder{color:#7d8580}.clear-search{border:0;background:transparent;color:#707873;cursor:pointer;opacity:.45}.clear-search:hover{opacity:1;color:#e1ddd1}.filter-toggle{min-width:104px;border:1px solid var(--line);border-radius:15px;background:#1a2022;color:#cbc7ba;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:600 11px Inter}.filter-toggle i{color:var(--gold)}.filter-toggle.active{border-color:rgba(216,187,121,.4);background:#242b2d;color:#efe8d5}
+.shop-rail-wrap{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;align-items:center;gap:4px;margin-top:9px}.shop-rail{display:flex;gap:7px;overflow:auto;scrollbar-width:none;padding:1px}.shop-rail::-webkit-scrollbar{display:none}.shop-pill{flex:0 0 auto;min-height:38px;border:1px solid rgba(255,255,255,.06);border-radius:999px;background:#161b1d;color:#999f9b;padding:0 14px;cursor:pointer;font:600 10px Inter;letter-spacing:.025em;display:flex;align-items:center;gap:7px;transition:.2s}.shop-pill i{font-size:9px;color:var(--pill,#d6bb79);opacity:.8}.shop-pill:hover{color:#e6e2d8;border-color:rgba(216,187,121,.18)}.shop-pill.active{color:#131617;background:linear-gradient(180deg,color-mix(in srgb,var(--pill) 92%,white),var(--pill));border-color:transparent;box-shadow:0 7px 18px color-mix(in srgb,var(--pill) 17%,transparent)}.shop-pill.active i{color:#111516}.rail-arrow{height:30px;border:0;background:transparent;color:#686f6b;cursor:pointer}.rail-arrow:hover{color:var(--gold)}
+.filter-panel{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.055)}.filter-panel label{display:grid;gap:5px}.filter-panel span{font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:#777f7a;padding-left:3px}.filter-panel select{width:100%;height:39px;border:1px solid var(--line);border-radius:10px;background:#181e20;color:#d6d2c7;padding:0 10px;font:500 10px Inter;outline:0}
+
+/* HEADING */
+.section-heading{display:flex;justify-content:space-between;align-items:end;margin:0 4px 13px}.eyebrow{margin:0 0 2px;color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-size:9px;font-weight:700}.section-heading h2{font-family:"Cormorant Garamond",serif;font-size:34px;line-height:1;margin:0}.view-actions{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}.view-btn{width:42px;height:38px;border:0;background:#161b1d;color:#6e7671;cursor:pointer}.view-btn+.view-btn{border-left:1px solid var(--line)}.view-btn.active{background:#252c2e;color:var(--gold2)}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.product-card{--accent:var(--gold);position:relative;min-width:0;border:1px solid rgba(228,210,164,.12);border-radius:22px 22px 22px 7px;overflow:hidden;background:linear-gradient(145deg,rgba(31,38,40,.98),rgba(18,23,25,.99));box-shadow:0 14px 42px rgba(0,0,0,.29);cursor:pointer;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}.product-card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 32%,transparent);box-shadow:0 22px 55px rgba(0,0,0,.4)}.product-card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.012)}
+.card-media{height:205px;position:relative;overflow:hidden;background:radial-gradient(circle at 32% 24%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 45%),linear-gradient(140deg,#252d2f,#111516)}.card-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) brightness(.78) contrast(1.06);transition:.45s}.product-card:hover .card-media img{transform:scale(1.04);filter:saturate(.96) brightness(.87) contrast(1.03)}.card-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#1b2123 0%,rgba(27,33,35,.62) 22%,transparent 65%),linear-gradient(to right,rgba(10,13,14,.13),transparent 45%)}.media-fallback{position:absolute;inset:0;display:grid;place-items:center;color:color-mix(in srgb,var(--accent) 70%,white);font-family:"Cormorant Garamond",serif;font-size:62px;opacity:.86}.media-ornament{position:absolute;right:13px;top:13px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.13);display:grid;place-items:center;color:#e6dfcd;background:rgba(11,14,15,.52);backdrop-filter:blur(8px);font-size:10px}.card-badges{position:absolute;left:12px;top:12px;z-index:3;display:flex;gap:6px;flex-wrap:wrap}.badge{padding:6px 8px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(9,12,13,.7);backdrop-filter:blur(10px);color:#ddd8cb;text-transform:uppercase;letter-spacing:.1em;font-size:8px;font-weight:700}.badge.illegal{color:#ffd2cf;background:rgba(104,30,29,.8);border-color:rgba(255,135,128,.18)}.badge.variant{color:#eadbf4;background:rgba(70,47,81,.78)}
+.price-seal{position:absolute;right:16px;bottom:-22px;z-index:4;width:74px;height:74px;border-radius:50%;display:grid;place-items:center;align-content:center;background:radial-gradient(circle at 35% 28%,#f4e4b4,#c5a45f 58%,#7f6537);color:#121617;border:5px solid #1b2123;box-shadow:0 8px 22px rgba(0,0,0,.34)}.price-seal strong{font-family:"Cormorant Garamond",serif;font-size:19px;line-height:.9;text-align:center;max-width:62px}.price-seal small{text-transform:uppercase;letter-spacing:.12em;font-size:6px;margin-top:4px;font-weight:800}
+.card-content{padding:22px 18px 17px}.card-shop{margin:0 82px 5px 0;color:color-mix(in srgb,var(--accent) 78%,white);text-transform:uppercase;letter-spacing:.14em;font-size:8px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card-title{font-family:"Cormorant Garamond",serif;font-size:28px;line-height:.95;margin:0 78px 7px 0}.card-summary{margin:0;color:#b7bab3;line-height:1.48;font-size:11px;min-height:49px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}.card-stats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}.mini-stat{min-width:0;padding:9px 10px;border-radius:11px;border:1px solid rgba(255,255,255,.055);background:#161b1d}.mini-stat span{display:block;color:#737b76;text-transform:uppercase;letter-spacing:.1em;font-size:7px;margin-bottom:4px}.mini-stat strong{display:block;color:#dbd7cb;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.effect-band{margin-top:8px;padding:10px 12px;border-left:2px solid color-mix(in srgb,var(--accent) 75%,white);background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 8%,transparent),transparent);color:#e3dfd3;font-size:10px;line-height:1.4}.open-hint{display:flex;align-items:center;justify-content:space-between;margin-top:13px;color:#8e958f;font-size:9px;text-transform:uppercase;letter-spacing:.11em}.open-hint i{color:var(--gold)}
+.cards.list-view{grid-template-columns:1fr}.list-view .product-card{display:grid;grid-template-columns:240px 1fr;min-height:210px}.list-view .card-media{height:100%}.list-view .card-content{padding:24px}.list-view .card-title{font-size:34px}.list-view .card-summary{min-height:0;-webkit-line-clamp:2}.list-view .card-stats{grid-template-columns:repeat(2,minmax(150px,220px));justify-content:start}.list-view .price-seal{right:-18px;bottom:22px;border-color:#171d1f}.list-view .card-shop{margin-right:0}.list-view .card-title{margin-right:0}
+
+/* EMPTY + FOOTER */
+.empty-state{padding:62px 20px;text-align:center;border:1px dashed var(--line2);border-radius:22px;background:rgba(255,255,255,.012)}.empty-sigil{width:70px;height:70px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;margin:0 auto 12px;color:var(--gold);font-size:23px}.empty-state h3{font-family:"Cormorant Garamond",serif;font-size:31px;margin:0}.empty-state p{color:var(--muted);font-size:11px}.empty-state button{border:1px solid var(--line2);background:#1c2325;color:#e7dfcb;border-radius:10px;padding:10px 14px;cursor:pointer}.catalog-footer{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:34px;color:#707873;font-size:9px;text-transform:uppercase;letter-spacing:.08em}.catalog-footer i{color:#8d794b;font-size:7px}.footer-line{height:1px;max-width:160px;flex:1;background:linear-gradient(90deg,transparent,rgba(216,187,121,.18))}.footer-line:last-child{transform:scaleX(-1)}
+
+/* DRAWER */
+.drawer-backdrop{position:fixed;inset:0;z-index:90;background:rgba(2,4,5,.72);backdrop-filter:blur(5px)}.detail-drawer{--accent:var(--gold);position:fixed;z-index:100;top:0;right:0;width:min(650px,94vw);height:100dvh;background:linear-gradient(180deg,#1a2022,#0f1314);border-left:1px solid var(--line2);box-shadow:-24px 0 80px rgba(0,0,0,.52);transform:translateX(102%);transition:transform .3s cubic-bezier(.2,.8,.2,1);overflow:auto}.detail-drawer.open{transform:translateX(0)}.drawer-close{position:fixed;z-index:105;right:18px;top:18px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.13);background:rgba(8,11,12,.7);color:#ddd8ca;backdrop-filter:blur(10px);cursor:pointer}.drawer-hero{height:310px;position:relative;overflow:hidden;background:radial-gradient(circle at 30% 20%,color-mix(in srgb,var(--accent) 24%,transparent),transparent 45%),#151a1c}.drawer-hero img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(.68) contrast(1.05)}.drawer-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#1a2022 1%,rgba(26,32,34,.42) 40%,rgba(6,8,9,.08))}.drawer-hero-copy{position:absolute;z-index:2;left:28px;right:70px;bottom:22px}.drawer-hero-copy .drawer-shop{color:color-mix(in srgb,var(--accent) 80%,white);text-transform:uppercase;letter-spacing:.16em;font-size:9px;font-weight:700}.drawer-hero-copy h2{font-family:"Cormorant Garamond",serif;font-size:46px;line-height:.9;margin:6px 0 8px}.drawer-hero-copy p{margin:0;color:#c6c4bc;font-size:12px;line-height:1.45}.drawer-body{padding:20px 24px 36px}.drawer-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:18px}.drawer-stat{padding:11px 10px;border:1px solid rgba(255,255,255,.055);border-radius:12px;background:#151a1c;min-width:0}.drawer-stat span{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:7px;color:#6f7772;margin-bottom:4px}.drawer-stat strong{display:block;font-size:10px;color:#ddd8cb;word-break:break-word}.drawer-stat.price strong{font-family:"Cormorant Garamond",serif;font-size:20px;color:var(--gold2)}.detail-block{margin-top:13px;border:1px solid rgba(255,255,255,.055);border-radius:15px;background:#14191b;overflow:hidden}.detail-block h3{display:flex;align-items:center;gap:8px;margin:0;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.05);font:700 9px Inter;text-transform:uppercase;letter-spacing:.12em;color:#bbb8af}.detail-block h3 i{color:var(--accent)}.detail-copy{padding:14px;color:#c7c7c0;font-size:11px;line-height:1.6}.detail-copy p{margin:0}.detail-copy p+p{margin-top:8px}.effect-box{padding:15px 16px;color:#ece5d4;font-size:12px;line-height:1.55;border-left:3px solid var(--accent);background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 10%,transparent),transparent)}table{width:100%;border-collapse:collapse;font-size:10px}th{text-align:left;color:#737b76;text-transform:uppercase;letter-spacing:.09em;font-size:7px;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.055)}td{padding:10px;border-bottom:1px solid rgba(255,255,255,.045);color:#c8c7bf;vertical-align:top}tr:last-child td{border-bottom:0}.price-cell{color:var(--gold2);font-weight:700}.illegal-text{color:#efaaa5}.recipe{margin:0;padding:0 0 0 18px}.recipe li+li{margin-top:5px}.notice{padding:11px 12px;border-radius:10px;border:1px dashed rgba(216,187,121,.22);background:rgba(216,187,121,.05);color:#bfb69d;font-size:10px;line-height:1.5}
+
+
+/* ===== IDENTITA DEI NEGOZI + NAVIGAZIONE ===== */
+:root{
+  --theme-deep:#0c0f10;
+  --theme-mid:#171d1f;
+  --theme-soft:#21292b;
+  --theme-line:rgba(226,207,157,.17);
+  --theme-glow:rgba(192,158,82,.14);
+}
+body{transition:background .35s ease}
+body.tone-virtuoso{
+  --theme-deep:#09130f;
+  --theme-mid:#13201a;
+  --theme-soft:#1d3026;
+  --theme-line:rgba(184,210,163,.20);
+  --theme-glow:rgba(115,163,112,.18);
+  background:radial-gradient(circle at 11% 5%,rgba(187,166,100,.17),transparent 31rem),radial-gradient(circle at 88% 27%,rgba(74,129,94,.20),transparent 36rem),linear-gradient(180deg,#111b16 0%,#09110e 72%,#070b09 100%);
+}
+body.tone-sinistro{
+  --theme-deep:#12070a;
+  --theme-mid:#211014;
+  --theme-soft:#32141c;
+  --theme-line:rgba(220,93,111,.22);
+  --theme-glow:rgba(158,33,59,.25);
+  background:radial-gradient(circle at 12% 5%,rgba(153,28,51,.24),transparent 31rem),radial-gradient(circle at 88% 28%,rgba(78,35,91,.22),transparent 36rem),linear-gradient(180deg,#1a0d11 0%,#0d0709 72%,#080506 100%);
+}
+body.tone-virtuoso .masthead{background:radial-gradient(circle at 15% 45%,rgba(213,126,0,.16),transparent 22rem),linear-gradient(120deg,rgba(40,27,7,.99),rgba(20,56,12,.98) 58%,rgba(8,20,6,.99))}
+body.tone-sinistro .masthead{background:radial-gradient(circle at 15% 45%,rgba(230,49,49,.16),transparent 22rem),linear-gradient(120deg,rgba(18,18,18,.99),rgba(5,5,5,.99) 58%,rgba(0,0,0,1))}
+body.tone-virtuoso .finder{background:rgba(19,35,10,.94);border-color:var(--theme-line)}
+body.tone-sinistro .finder{background:rgba(5,5,5,.96);border-color:var(--theme-line)}
+body.tone-virtuoso .product-card{background:linear-gradient(145deg,rgba(52,43,18,.98),rgba(19,39,13,.99));border-color:rgba(179,204,161,.12)}
+body.tone-sinistro .product-card{background:linear-gradient(145deg,rgba(26,26,26,.99),rgba(4,4,4,.99));border-color:rgba(220,93,111,.13)}
+body.tone-virtuoso .mini-stat{background:#1a2812}
+body.tone-sinistro .mini-stat{background:#090909}
+body.tone-virtuoso .detail-drawer{background:linear-gradient(180deg,#243716,#0d1609)}
+body.tone-sinistro .detail-drawer{background:linear-gradient(180deg,#161616,#000)}
+
+.district-nav{display:flex;gap:7px;align-items:center;margin-top:9px;padding:8px;border:1px solid rgba(255,255,255,.055);border-radius:14px;background:rgba(255,255,255,.018)}
+.district-nav::before{content:"Negozi";padding:0 7px 0 3px;color:#6f7772;text-transform:uppercase;letter-spacing:.15em;font-size:8px;font-weight:700}
+.district-btn{min-height:34px;border:1px solid rgba(255,255,255,.065);border-radius:10px;background:#151a1c;color:#929994;padding:0 12px;display:flex;align-items:center;gap:7px;cursor:pointer;font:700 9px Inter;text-transform:uppercase;letter-spacing:.08em;transition:.2s}
+.district-btn i{font-size:9px}.district-btn:hover{color:#e6e1d4;border-color:rgba(216,187,121,.2)}
+.district-btn[data-tone="virtuoso"] i{color:#d57e00}.district-btn[data-tone="sinistro"] i{color:#e63131}
+.district-btn.active{color:#111617;background:linear-gradient(180deg,#e4d5a9,#bba05f);border-color:transparent;box-shadow:0 8px 18px rgba(0,0,0,.22)}
+.district-btn[data-tone="virtuoso"].active{background:linear-gradient(180deg,#e29b2d,#52b400)}
+.district-btn[data-tone="sinistro"].active{color:#f8e8ea;background:linear-gradient(180deg,#e63131,#520707)}
+.shop-pill[data-tone="sinistro"]{border-color:rgba(214,81,103,.11)}
+.shop-pill[data-tone="virtuoso"]{border-color:rgba(153,193,141,.10)}
+.shop-pill .tone-dot{width:6px;height:6px;border-radius:50%;background:var(--pill);box-shadow:0 0 9px color-mix(in srgb,var(--pill) 55%,transparent)}
+.shop-pill.active .tone-dot{background:#111516;box-shadow:none}
+.badge.tone-virtuoso{color:#ecffd8;background:rgba(61,100,25,.80);border-color:rgba(82,180,0,.25)}
+.badge.tone-sinistro{color:#ffe0e0;background:rgba(72,0,0,.86);border-color:rgba(230,49,49,.28)}
+.shop-tone-label{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.07);font-size:7px;text-transform:uppercase;letter-spacing:.13em;color:#9ba29d;background:rgba(0,0,0,.18)}
+.shop-tone-label i{font-size:7px}
+body.tone-virtuoso .shop-tone-label i{color:#d57e00} body.tone-sinistro .shop-tone-label i{color:#e63131}
+
+/* Ogni voce deve avere una vera immagine: il fallback resta solo come sicurezza tecnica. */
+.card-media img{filter:saturate(.9) brightness(.82) contrast(1.05)}
+body.tone-sinistro .card-media img{filter:saturate(.82) brightness(.69) contrast(1.13)}
+body.tone-sinistro .product-card:hover .card-media img{filter:saturate(.95) brightness(.78) contrast(1.10)}
+body.tone-virtuoso .card-media::after{background:linear-gradient(to top,#1b2b10 0%,rgba(44,55,18,.62) 22%,transparent 65%),linear-gradient(to right,rgba(7,16,11,.15),transparent 45%)}
+body.tone-sinistro .card-media::after{background:linear-gradient(to top,#0b0b0b 0%,rgba(35,0,0,.70) 22%,transparent 65%),linear-gradient(to right,rgba(16,5,9,.24),transparent 45%)}
+
+@media(max-width:980px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.masthead{grid-template-columns:150px 1fr 100px}.masthead-rune{width:130px;height:130px}.masthead-stat{width:90px;height:90px}.masthead h1{font-size:55px}}
+@media(max-width:700px){.district-nav{overflow:auto;scrollbar-width:none}.district-nav::before{display:none}.district-btn{flex:0 0 auto}.catalog-shell{width:min(100% - 14px,1280px);padding-top:7px}.masthead{grid-template-columns:1fr;min-height:0;padding:28px 22px 32px;text-align:center;clip-path:polygon(0 0,94% 0,100% 9%,100% 100%,6% 100%,0 91%)}.masthead-rune{width:110px;height:110px}.masthead-stat{display:none}.kicker{justify-content:center}.masthead-tags{justify-content:center}.masthead h1{font-size:48px}.finder{top:4px}.filter-panel{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.finder-main{grid-template-columns:1fr 52px}.filter-toggle span{display:none}.filter-toggle{min-width:52px}.section-heading h2{font-size:29px}.list-view .product-card{grid-template-columns:1fr}.list-view .card-media{height:190px}.list-view .price-seal{right:16px;bottom:-22px}.drawer-stats{grid-template-columns:repeat(2,1fr)}}
+
+
+/* ===== PALETTE DEFINITIVE PREZZARI ===== */
+body.tone-virtuoso{
+  --theme-primary:#d57e00;
+  --theme-secondary:#52b400;
+  --theme-line:rgba(213,126,0,.34);
+  background:
+    radial-gradient(circle at 12% 4%,rgba(213,126,0,.16),transparent 32rem),
+    radial-gradient(circle at 88% 26%,rgba(82,180,0,.14),transparent 34rem),
+    linear-gradient(180deg,#17200d 0%,#0e1409 70%,#090d06 100%);
+}
+body.tone-sinistro{
+  --theme-primary:#e63131;
+  --theme-secondary:#040404;
+  --theme-line:rgba(230,49,49,.34);
+  background:
+    radial-gradient(circle at 12% 4%,rgba(230,49,49,.15),transparent 32rem),
+    radial-gradient(circle at 88% 30%,rgba(120,0,0,.14),transparent 34rem),
+    linear-gradient(180deg,#090909 0%,#040404 70%,#000 100%);
+}
+body.tone-virtuoso .masthead{
+  background:
+    radial-gradient(circle at 15% 45%,rgba(213,126,0,.17),transparent 22rem),
+    linear-gradient(120deg,#3b2608 0%,#21420f 54%,#101b09 100%);
+  border-color:rgba(213,126,0,.28);
+}
+body.tone-sinistro .masthead{
+  background:
+    radial-gradient(circle at 15% 45%,rgba(230,49,49,.19),transparent 22rem),
+    linear-gradient(120deg,#151515 0%,#070707 58%,#000 100%);
+  border-color:rgba(230,49,49,.30);
+}
+body.tone-virtuoso .masthead::after{background:linear-gradient(90deg,transparent,#d57e00,#52b400,transparent)}
+body.tone-sinistro .masthead::after{background:linear-gradient(90deg,transparent,#e63131,#5d0000,transparent)}
+body.tone-virtuoso .masthead-rune>i{background:radial-gradient(circle at 35% 28%,#ffd28b,#d57e00 58%,#6b3d00);color:#132007}
+body.tone-sinistro .masthead-rune>i{background:radial-gradient(circle at 35% 28%,#ff7a7a,#e63131 58%,#520707);color:#050505}
+body.tone-virtuoso .kicker, body.tone-virtuoso .eyebrow, body.tone-virtuoso .magic-search>i{color:#d57e00}
+body.tone-sinistro .kicker, body.tone-sinistro .eyebrow, body.tone-sinistro .magic-search>i{color:#e63131}
+body.tone-virtuoso .product-card{border-color:rgba(213,126,0,.18)}
+body.tone-sinistro .product-card{border-color:rgba(230,49,49,.20)}
+body.tone-virtuoso .effect-band{border-color:rgba(82,180,0,.20)}
+body.tone-sinistro .effect-band{border-color:rgba(230,49,49,.22)}
+
+
+.quick-shop{min-height:54px;display:grid;grid-template-columns:28px 1fr;align-items:center;border-radius:15px;border:1px solid rgba(216,187,121,.16);background:linear-gradient(180deg,#21282a,#1a2022);padding:0 10px}
+.quick-shop i{color:var(--gold);font-size:13px;text-align:center}
+.quick-shop select{width:100%;border:0;outline:0;background:transparent;color:#ddd8cc;font:600 10px Inter;padding:0 5px;cursor:pointer}
+body.tone-virtuoso .quick-shop{border-color:rgba(213,126,0,.22);background:linear-gradient(180deg,#283319,#17210f)}
+body.tone-sinistro .quick-shop{border-color:rgba(230,49,49,.22);background:linear-gradient(180deg,#161616,#080808)}
+@media(max-width:760px){.finder-main{grid-template-columns:1fr auto}.quick-shop{grid-column:1/-1;order:3}}
+
+
+/* ===== TITOLI: FONT MAGIC ===== */
+.masthead h1,
+.section-heading h2,
+.card-title,
+.drawer-hero-copy h2,
+.empty-state h3,
+.detail-block h3,
+.filter-title{
+  font-family:'magic','MedievalSharp',serif !important;
+  font-weight:normal !important;
+}
+
+/* ===== FILTRI AVANZATI ===== */
+.advanced-filters{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  align-items:end;
+}
+.filter-panel-head{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:2px 3px 5px;
+}
+.filter-panel-head>div{min-width:0}
+.filter-title{
+  margin:0;
+  color:var(--gold2);
+  font-size:22px;
+  line-height:1;
+}
+.filter-panel-head small{
+  display:block;
+  margin-top:5px;
+  color:#7f8782;
+  font-size:9px;
+}
+.filter-panel label{min-width:0}
+.filter-panel select,
+.filter-panel input{
+  width:100%;
+  height:41px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#181e20;
+  color:#d6d2c7;
+  padding:0 10px;
+  font:500 10px Inter;
+  outline:0;
+  box-sizing:border-box;
+}
+.filter-panel input::placeholder{color:#69716d}
+.filter-panel select:focus,
+.filter-panel input:focus{
+  border-color:color-mix(in srgb,var(--gold) 58%,transparent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 8%,transparent);
+}
+.number-field{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 28px;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  background:#181e20;
+}
+.number-field input{
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+.number-field b{
+  color:var(--gold2);
+  font:700 9px Inter;
+  text-align:center;
+}
+.reset-filters{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#1b2123;
+  color:#bdb9ad;
+  padding:9px 12px;
+  font:600 9px Inter;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.reset-filters i{color:var(--gold);margin-right:5px}
+.reset-filters:hover{
+  border-color:color-mix(in srgb,var(--gold) 42%,transparent);
+  color:#eee8d9;
+}
+.filter-help{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:9px;
+  align-items:start;
+  padding:11px 12px;
+  border:1px dashed color-mix(in srgb,var(--gold) 22%,transparent);
+  border-radius:11px;
+  background:color-mix(in srgb,var(--gold) 4%,transparent);
+}
+.filter-help>i{
+  width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;
+  color:var(--gold);
+  background:color-mix(in srgb,var(--gold) 8%,transparent);
+}
+.filter-help strong{
+  display:block;
+  color:#d8d3c7;
+  font-size:9px;
+  margin-bottom:3px;
+}
+.filter-help span{
+  display:block!important;
+  padding:0!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  color:#808783!important;
+  font-size:9px!important;
+  line-height:1.45;
+}
+.filter-toggle .filter-count{
+  min-width:18px;height:18px;
+  display:inline-grid;place-items:center;
+  border-radius:999px;
+  background:var(--gold);
+  color:#0e1112;
+  font-size:8px;
+  font-weight:800;
+}
+@media(max-width:1000px){
+  .advanced-filters{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .advanced-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+  .advanced-filters{grid-template-columns:1fr}
+  .filter-panel-head{align-items:flex-start}
+}
+
+
+/* ============================================================
+   UX/UI CONSULTAZIONE — V6
+   ============================================================ */
+
+/* Search + salto rapido: le azioni primarie restano sempre esposte. */
+.finder-main{
+  grid-template-columns:minmax(0,1fr) minmax(210px,300px) !important;
+  gap:10px !important;
+}
+
+/* Indicazione cromatica UNIVOCA del tipo negozio:
+   virtuoso = arancione, sinistro = rosso. */
+.district-btn[data-tone="virtuoso"] i{color:#d57e00 !important}
+.district-btn[data-tone="sinistro"] i{color:#e63131 !important}
+
+.shop-pill[data-tone="virtuoso"] .tone-dot{
+  background:#d57e00 !important;
+  box-shadow:0 0 9px rgba(213,126,0,.45) !important;
+}
+.shop-pill[data-tone="sinistro"] .tone-dot{
+  background:#e63131 !important;
+  box-shadow:0 0 9px rgba(230,49,49,.48) !important;
+}
+.shop-pill[data-tone="all"] .tone-dot{
+  background:#b7aa83 !important;
+  box-shadow:0 0 8px rgba(183,170,131,.35) !important;
+}
+.shop-pill.active .tone-dot{
+  transform:scale(1.18);
+  box-shadow:0 0 0 3px rgba(255,255,255,.06),0 0 11px currentColor !important;
+}
+body.tone-virtuoso .shop-tone-label i{color:#d57e00 !important}
+body.tone-sinistro .shop-tone-label i{color:#e63131 !important}
+
+/* Scheda sintetica del negozio selezionato. */
+.shop-overview{
+  margin-top:10px;
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr);
+  gap:14px;
+  align-items:start;
+  padding:15px 17px;
+  border-radius:15px;
+  border:1px solid var(--theme-line);
+  background:
+    linear-gradient(135deg,color-mix(in srgb,var(--theme-primary) 8%,transparent),transparent 45%),
+    rgba(15,19,20,.80);
+  box-shadow:inset 0 1px rgba(255,255,255,.025);
+}
+.shop-overview[hidden]{display:none}
+.shop-overview-icon{
+  width:56px;height:56px;border-radius:15px;
+  display:grid;place-items:center;
+  border:1px solid color-mix(in srgb,var(--theme-primary) 28%,transparent);
+  background:color-mix(in srgb,var(--theme-primary) 8%,#111617);
+  color:var(--theme-primary);
+  font-size:20px;
+}
+.shop-overview-copy{min-width:0}
+.shop-overview-topline{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin-bottom:5px;
+}
+.shop-kind,
+.shop-overview-label{
+  display:inline-flex;align-items:center;gap:6px;
+  min-height:22px;padding:0 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(0,0,0,.18);
+  color:#8e9691;
+  font:700 7px Inter;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.shop-kind-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#d57e00;
+  box-shadow:0 0 8px rgba(213,126,0,.45);
+}
+body.tone-sinistro .shop-kind-dot{
+  background:#e63131;
+  box-shadow:0 0 8px rgba(230,49,49,.46);
+}
+.shop-overview-copy h3{
+  margin:0;
+  color:#ece5d7;
+  font-family:'magic','MedievalSharp',serif;
+  font-size:23px;
+  font-weight:normal;
+  line-height:1.08;
+}
+.shop-overview-copy p{
+  margin:6px 0 0;
+  max-width:920px;
+  color:#999f9a;
+  font-size:10px;
+  line-height:1.55;
+}
+.shop-category-list{
+  display:flex;flex-wrap:wrap;gap:5px;
+  margin-top:10px;
+}
+.shop-category-list span{
+  display:inline-flex;align-items:center;
+  min-height:24px;
+  padding:0 8px;
+  border-radius:7px;
+  border:1px solid color-mix(in srgb,var(--theme-primary) 15%,transparent);
+  background:color-mix(in srgb,var(--theme-primary) 5%,transparent);
+  color:#aaa69c;
+  font:600 8px Inter;
+}
+.shop-category-list span::before{
+  content:"";
+  width:4px;height:4px;border-radius:50%;
+  margin-right:6px;background:var(--theme-primary);
+}
+
+/* Accordion filtri: tutta la barra è cliccabile. */
+.filter-accordion-toggle{
+  width:100%;
+  margin-top:10px;
+  min-height:60px;
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+  text-align:left;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  padding:9px 12px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.012)),
+    #14191b;
+  color:#d8d3c7;
+  cursor:pointer;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.filter-accordion-toggle:hover{
+  border-color:color-mix(in srgb,var(--gold) 32%,transparent);
+  background:
+    linear-gradient(180deg,color-mix(in srgb,var(--gold) 5%,transparent),transparent),
+    #161c1e;
+}
+.filter-accordion-toggle:active{transform:translateY(1px)}
+.filter-accordion-toggle.active{
+  border-color:color-mix(in srgb,var(--gold) 36%,transparent);
+  border-radius:14px 14px 8px 8px;
+}
+.filter-accordion-icon{
+  width:36px;height:36px;border-radius:10px;
+  display:grid;place-items:center;
+  background:color-mix(in srgb,var(--gold) 8%,transparent);
+  border:1px solid color-mix(in srgb,var(--gold) 18%,transparent);
+  color:var(--gold);
+}
+.filter-accordion-copy{min-width:0}
+.filter-accordion-copy strong{
+  display:block;
+  font-family:'magic','MedievalSharp',serif;
+  font-size:18px;
+  font-weight:normal;
+  color:#e4ddcf;
+  line-height:1;
+}
+.filter-accordion-copy small{
+  display:block;
+  margin-top:5px;
+  color:#737b76;
+  font:500 8px/1.35 Inter;
+}
+.filter-accordion-meta{
+  display:flex;align-items:center;gap:10px;
+}
+.filter-chevron{
+  color:#747c77;
+  font-size:10px;
+  transition:transform .24s ease,color .2s;
+}
+.filter-accordion-toggle.active .filter-chevron{
+  transform:rotate(180deg);
+  color:var(--gold);
+}
+.filter-count{
+  min-width:20px;height:20px;
+  display:inline-grid;place-items:center;
+  border-radius:999px;
+  background:var(--gold);
+  color:#0d1112;
+  font:800 8px Inter;
+}
+
+/* Il pannello appare come prosecuzione naturale dell'accordion. */
+.advanced-filters{
+  margin-top:0 !important;
+  border-radius:8px 8px 14px 14px !important;
+  border-top-color:transparent !important;
+  animation:filtersReveal .18s ease-out;
+}
+@keyframes filtersReveal{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Migliore gerarchia del contatore in testata. */
+.masthead-stat small{color:#9b9f98}
+.masthead-stat strong{
+  font-family:'magic','MedievalSharp',serif !important;
+  font-size:35px !important;
+}
+
+/* Titolo collezione e descrizioni più leggibili. */
+.section-heading{margin-top:18px}
+.section-heading h2{line-height:1.05}
+#pageSubtitle{max-width:650px}
+
+/* Focus visibile per consultazione anche da tastiera. */
+.filter-accordion-toggle:focus-visible,
+.shop-pill:focus-visible,
+.district-btn:focus-visible,
+.view-btn:focus-visible{
+  outline:2px solid color-mix(in srgb,var(--gold) 65%,white);
+  outline-offset:2px;
+}
+
+@media(max-width:760px){
+  .finder-main{grid-template-columns:1fr !important}
+  .quick-shop{grid-column:auto !important;order:initial !important}
+  .shop-overview{grid-template-columns:44px minmax(0,1fr);padding:13px}
+  .shop-overview-icon{width:42px;height:42px;border-radius:12px;font-size:15px}
+  .shop-overview-copy h3{font-size:20px}
+  .filter-accordion-copy small{display:none}
+}
+
+
+/* ============================================================
+   TEMA NEUTRALE PREDEFINITO — V8
+   Lo sfondo cambia SOLO quando viene selezionato un negozio.
+   ============================================================ */
+body{
+  --theme-primary:#b8aa82;
+  --theme-secondary:#6f7772;
+  --theme-line:rgba(184,170,130,.18);
+  --theme-glow:rgba(184,170,130,.10);
+  background:
+    radial-gradient(circle at 12% 4%,rgba(184,170,130,.08),transparent 31rem),
+    radial-gradient(circle at 88% 27%,rgba(90,100,98,.08),transparent 34rem),
+    linear-gradient(180deg,#171a1b 0%,#111415 72%,#0c0f10 100%) !important;
+}
+
+body:not(.tone-virtuoso):not(.tone-sinistro) .masthead{
+  background:
+    radial-gradient(circle at 15% 45%,rgba(184,170,130,.07),transparent 22rem),
+    linear-gradient(120deg,#202426 0%,#171b1d 58%,#111416 100%) !important;
+  border-color:rgba(184,170,130,.14) !important;
+}
+body:not(.tone-virtuoso):not(.tone-sinistro) .masthead::after{
+  background:linear-gradient(90deg,transparent,#8f8568,#b8aa82,#6f7772,transparent) !important;
+}
+body:not(.tone-virtuoso):not(.tone-sinistro) .masthead-rune>i{
+  background:radial-gradient(circle at 35% 28%,#d5ccb5,#9e9478 58%,#4d514e) !important;
+  color:#16191a !important;
+}
+body:not(.tone-virtuoso):not(.tone-sinistro) .product-card{
+  background:linear-gradient(145deg,rgba(31,35,37,.98),rgba(18,21,22,.99)) !important;
+  border-color:rgba(184,170,130,.10) !important;
+}
+body:not(.tone-virtuoso):not(.tone-sinistro) .detail-drawer{
+  background:linear-gradient(180deg,#1d2123,#101314) !important;
+}
+body:not(.tone-virtuoso):not(.tone-sinistro) .mini-stat{
+  background:#171b1d !important;
+}
+
+
+/* ============================================================
+   ATMOSFERA MAGICA — V9
+   ============================================================ */
+body{overflow-x:hidden}
+.mystic-backdrop,
+.mystic-architecture,
+.floating-motes{position:fixed;inset:0;pointer-events:none}
+.mystic-backdrop{z-index:-5;opacity:.98;background:
+  radial-gradient(circle at 18% 10%,rgba(255,224,161,.10),transparent 18rem),
+  radial-gradient(circle at 78% 14%,rgba(122,150,206,.07),transparent 18rem),
+  radial-gradient(circle at 50% -10%,rgba(255,255,255,.06),transparent 30rem),
+  linear-gradient(180deg,rgba(9,12,15,.18),rgba(9,12,15,.55));}
+.mystic-architecture{z-index:-4;opacity:.50;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1200'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop stop-color='%2322292d' stop-opacity='.88'/%3E%3Cstop offset='1' stop-color='%23090b0d' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1200' fill='url(%23g)'/%3E%3Cg fill='%230d1114' opacity='.92'%3E%3Crect x='0' y='770' width='1600' height='430'/%3E%3Crect x='95' y='250' width='280' height='640' rx='18'/%3E%3Crect x='435' y='220' width='300' height='670' rx='18'/%3E%3Crect x='815' y='240' width='320' height='650' rx='18'/%3E%3Crect x='1200' y='260' width='275' height='630' rx='18'/%3E%3C/g%3E%3Cg fill='%23171d20' opacity='.92'%3E%3Crect x='120' y='315' width='230' height='18' rx='6'/%3E%3Crect x='120' y='410' width='230' height='18' rx='6'/%3E%3Crect x='120' y='505' width='230' height='18' rx='6'/%3E%3Crect x='120' y='600' width='230' height='18' rx='6'/%3E%3Crect x='120' y='695' width='230' height='18' rx='6'/%3E%3Crect x='470' y='315' width='230' height='18' rx='6'/%3E%3Crect x='470' y='410' width='230' height='18' rx='6'/%3E%3Crect x='470' y='505' width='230' height='18' rx='6'/%3E%3Crect x='470' y='600' width='230' height='18' rx='6'/%3E%3Crect x='470' y='695' width='230' height='18' rx='6'/%3E%3Crect x='850' y='315' width='250' height='18' rx='6'/%3E%3Crect x='850' y='410' width='250' height='18' rx='6'/%3E%3Crect x='850' y='505' width='250' height='18' rx='6'/%3E%3Crect x='850' y='600' width='250' height='18' rx='6'/%3E%3Crect x='850' y='695' width='250' height='18' rx='6'/%3E%3Crect x='1230' y='315' width='215' height='18' rx='6'/%3E%3Crect x='1230' y='410' width='215' height='18' rx='6'/%3E%3Crect x='1230' y='505' width='215' height='18' rx='6'/%3E%3Crect x='1230' y='600' width='215' height='18' rx='6'/%3E%3Crect x='1230' y='695' width='215' height='18' rx='6'/%3E%3C/g%3E%3Cg fill='%23f0d6a6' opacity='.10'%3E%3Cellipse cx='236' cy='192' rx='72' ry='96'/%3E%3Cellipse cx='578' cy='168' rx='72' ry='96'/%3E%3Cellipse cx='968' cy='182' rx='82' ry='108'/%3E%3Cellipse cx='1338' cy='196' rx='72' ry='96'/%3E%3C/g%3E%3Cg fill='%23ffd79a' opacity='.11'%3E%3Ccircle cx='180' cy='360' r='10'/%3E%3Ccircle cx='240' cy='460' r='12'/%3E%3Ccircle cx='280' cy='555' r='9'/%3E%3Ccircle cx='520' cy='455' r='11'/%3E%3Ccircle cx='610' cy='360' r='10'/%3E%3Ccircle cx='940' cy='375' r='13'/%3E%3Ccircle cx='1050' cy='470' r='10'/%3E%3Ccircle cx='1295' cy='448' r='11'/%3E%3Ccircle cx='1380' cy='555' r='10'/%3E%3C/g%3E%3C/svg%3E");background-size:cover;background-position:center top;filter:blur(1px) saturate(1.05);mix-blend-mode:screen}
+body.tone-virtuoso .mystic-backdrop{background:
+  radial-gradient(circle at 16% 12%,rgba(233,174,64,.16),transparent 18rem),
+  radial-gradient(circle at 82% 10%,rgba(110,187,50,.12),transparent 18rem),
+  radial-gradient(circle at 50% -10%,rgba(255,255,255,.05),transparent 30rem),
+  linear-gradient(180deg,rgba(28,23,7,.12),rgba(9,12,15,.48))}
+body.tone-sinistro .mystic-backdrop{background:
+  radial-gradient(circle at 16% 12%,rgba(230,49,49,.16),transparent 18rem),
+  radial-gradient(circle at 82% 10%,rgba(98,0,0,.12),transparent 18rem),
+  radial-gradient(circle at 50% -10%,rgba(255,255,255,.03),transparent 30rem),
+  linear-gradient(180deg,rgba(20,4,4,.16),rgba(9,12,15,.55))}
+.floating-motes{z-index:-3;overflow:hidden}
+.floating-motes span{position:absolute;display:block;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#fff3ca 0%,#f4d18b 45%,rgba(255,255,255,0) 70%);opacity:.3;filter:blur(.2px);animation:floatMote linear infinite}
+.floating-motes span:nth-child(1){left:7%;top:78%;animation-duration:16s;animation-delay:-2s}
+.floating-motes span:nth-child(2){left:14%;top:88%;animation-duration:18s;animation-delay:-6s;width:4px;height:4px}
+.floating-motes span:nth-child(3){left:22%;top:81%;animation-duration:20s;animation-delay:-8s}
+.floating-motes span:nth-child(4){left:31%;top:90%;animation-duration:17s;animation-delay:-4s;width:6px;height:6px}
+.floating-motes span:nth-child(5){left:39%;top:85%;animation-duration:22s;animation-delay:-10s;width:3px;height:3px}
+.floating-motes span:nth-child(6){left:47%;top:92%;animation-duration:19s;animation-delay:-9s}
+.floating-motes span:nth-child(7){left:56%;top:79%;animation-duration:21s;animation-delay:-5s;width:6px;height:6px}
+.floating-motes span:nth-child(8){left:63%;top:87%;animation-duration:18s;animation-delay:-11s}
+.floating-motes span:nth-child(9){left:70%;top:90%;animation-duration:23s;animation-delay:-7s;width:4px;height:4px}
+.floating-motes span:nth-child(10){left:77%;top:84%;animation-duration:20s;animation-delay:-12s}
+.floating-motes span:nth-child(11){left:85%;top:88%;animation-duration:17s;animation-delay:-3s;width:3px;height:3px}
+.floating-motes span:nth-child(12){left:92%;top:80%;animation-duration:21s;animation-delay:-13s;width:6px;height:6px}
+.floating-motes span:nth-child(13){left:11%;top:71%;animation-duration:24s;animation-delay:-14s;width:2px;height:2px}
+.floating-motes span:nth-child(14){left:29%;top:74%;animation-duration:18s;animation-delay:-15s;width:4px;height:4px}
+.floating-motes span:nth-child(15){left:59%;top:72%;animation-duration:22s;animation-delay:-16s;width:3px;height:3px}
+.floating-motes span:nth-child(16){left:88%;top:76%;animation-duration:19s;animation-delay:-17s;width:5px;height:5px}
+@keyframes floatMote{0%{transform:translate3d(0,0,0) scale(.75);opacity:0}15%{opacity:.22}50%{opacity:.38}100%{transform:translate3d(-14px,-200px,0) scale(1.15);opacity:0}}
+.catalog-shell{position:relative;z-index:2}
+.masthead,.preface-panel,.finder,.collection-head,.cards,.empty-state,.catalog-note,.catalog-footer,.detail-drawer{backdrop-filter:blur(8px)}
+.masthead{box-shadow:0 18px 60px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.03)}
+.masthead-copy p:empty{display:none}
+.masthead-copy h1{text-shadow:0 4px 18px rgba(0,0,0,.32)}
+.kicker{letter-spacing:.19em}
+
+/* Preface / guide */
+.preface-panel{margin-top:12px;padding:18px 18px 16px;border:1px solid rgba(184,170,130,.16);border-radius:18px;background:
+  linear-gradient(135deg,rgba(255,237,196,.035),transparent 35%),
+  linear-gradient(180deg,rgba(24,27,29,.90),rgba(16,19,20,.92));box-shadow:0 12px 40px rgba(0,0,0,.18)}
+.preface-panel h2{margin:6px 0 0;color:#efe6d6;font-family:'magic','MedievalSharp',serif;font-size:30px;font-weight:normal;line-height:1.05}
+.preface-panel p{margin:8px 0 0;max-width:920px;color:#9ea49e;font-size:10px;line-height:1.65}
+.preface-actions{margin-top:14px}
+.intro-toggle{width:100%;display:grid;grid-template-columns:42px minmax(0,1fr) 20px;gap:12px;align-items:center;padding:12px 13px;border-radius:14px;border:1px solid rgba(184,170,130,.18);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));color:#e6dfd0;cursor:pointer;transition:.2s border-color,.2s background,.2s transform;text-align:left}
+.intro-toggle:hover{border-color:rgba(184,170,130,.32);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02))}
+.intro-toggle:active{transform:translateY(1px)}
+.intro-toggle.active{border-radius:14px 14px 8px 8px}
+.intro-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(184,170,130,.10);border:1px solid rgba(184,170,130,.22);color:#d6c49c}
+.intro-text strong{display:block;color:#ece4d6;font-family:'magic','MedievalSharp',serif;font-size:19px;font-weight:normal;line-height:1}
+.intro-text small{display:block;margin-top:5px;color:#7b827d;font:500 8px/1.4 Inter}
+.intro-chevron{color:#808883;transition:transform .22s ease,color .2s}
+.intro-toggle.active .intro-chevron{transform:rotate(180deg);color:#d6c49c}
+.intro-panel{margin-top:0;padding:15px;border:1px solid rgba(184,170,130,.14);border-top:0;border-radius:8px 8px 16px 16px;background:linear-gradient(180deg,rgba(18,22,24,.92),rgba(12,15,16,.94));animation:filtersReveal .18s ease-out}
+.intro-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.intro-grid-top{grid-template-columns:1.2fr 1.8fr;margin-top:0}
+.intro-card{padding:13px 13px 12px;border-radius:14px;border:1px solid rgba(184,170,130,.10);background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));min-width:0}
+.intro-card h3{margin:0 0 9px;color:#ebdfcb;font-family:'magic','MedievalSharp',serif;font-weight:normal;font-size:20px;line-height:1.05}
+.intro-card h3 i{color:#d6c49c;margin-right:7px}
+.intro-card p,.intro-card li{color:#99a09b;font-size:9px;line-height:1.65}
+.intro-card ul{margin:0;padding-left:15px}
+.intro-card li+li{margin-top:5px}
+.route-list{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.route-list span{display:inline-flex;align-items:center;gap:6px;padding:0 9px;min-height:26px;border-radius:999px;background:rgba(184,170,130,.08);border:1px solid rgba(184,170,130,.16);color:#ddd0b4;font:600 8px Inter}
+.activation-list{display:grid;gap:8px}
+.activation-list span{display:block;padding:10px 10px 9px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(184,170,130,.10)}
+.activation-list strong{display:block;color:#ece0c6;font-size:9px}
+.activation-list small{display:block;margin-top:4px;color:#99a09b;font:500 8px/1.5 Inter}
+.catalog-note{margin-top:16px;display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;padding:12px 13px;border:1px solid rgba(184,170,130,.12);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));color:#a0a59f}
+.catalog-note i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(184,170,130,.10);color:#dccaa0}
+.catalog-note p{margin:0;font-size:9px;line-height:1.6}
+
+/* Extra magic for cards */
+.product-card::before{content:"";position:absolute;inset:0 0 auto 0;height:70px;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent);pointer-events:none}
+.product-card::after{content:"";position:absolute;inset:auto 14px 14px auto;width:70px;height:70px;background:radial-gradient(circle,rgba(255,214,130,.08),transparent 65%);pointer-events:none;opacity:.45}
+body.tone-sinistro .product-card::after{background:radial-gradient(circle,rgba(230,49,49,.09),transparent 65%)}
+.shop-overview{box-shadow:0 10px 30px rgba(0,0,0,.16)}
+
+@media(max-width:980px){.intro-grid{grid-template-columns:1fr 1fr}.intro-grid-top{grid-template-columns:1fr}.intro-card h3{font-size:18px}}
+@media(max-width:760px){.preface-panel{padding:15px}.preface-panel h2{font-size:26px}.intro-grid,.intro-grid-top{grid-template-columns:1fr}.intro-panel{padding:12px}.intro-text small{display:none}}
+
+@media (prefers-reduced-motion: reduce){.floating-motes span,.rune-ring,.stat-orbit{animation:none !important}}
+
+/* Filtri: titolo unico sull'accordion, pannello chiuso di default. */
+.compact-filter-head{
+  align-items:center;
+  min-height:34px;
+  padding:0 2px 5px;
+}
+.compact-filter-head small{
+  margin:0;
+  color:#727a75;
+  font-size:8px;
+  line-height:1.4;
+}
+
+</style>
+</head>
+<body>
+  <div class="mystic-backdrop" aria-hidden="true"></div>
+  <div class="mystic-architecture" aria-hidden="true"></div>
+  <div class="floating-motes" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="page-glow glow-one"></div>
+  <div class="page-glow glow-two"></div>
+  <div class="grain"></div>
+
+  <main class="catalog-shell" id="catalogApp">
+    <header class="masthead">
+      <div class="masthead-rune" aria-hidden="true">
+        <span class="rune-ring ring-a"></span>
+        <span class="rune-ring ring-b"></span>
+        <i class="fa-solid fa-wand-sparkles"></i>
+      </div>
+      <div class="masthead-copy">
+        <div class="kicker"><span></span> Felix Felicis <span></span></div>
+        <h1 id="pageTitle">Prezzari dei Negozi</h1>
+        <p id="pageSubtitle"></p>
+      </div>
+      <div class="masthead-stat">
+        <span class="stat-orbit"></span>
+        <strong id="resultCount">0</strong>
+        <small>negozi</small>
+      </div>
+    </header>
+
+    <section class="preface-panel" aria-label="Introduzione ai prezzari">
+      <div class="preface-copy">
+        <div class="kicker"><span></span> Guida del Commercio <span></span></div>
+        <h2>Benvenuto tra le botteghe del Mondo Magico</h2>
+        <p>Qui puoi consultare i prezzari degli oggetti acquistabili tramite Commercio OFFGame, confrontare prezzi, bonus, usi e varianti, e orientarti tra merce legale, illegale e mercati alternativi.</p>
+      </div>
+      <div class="preface-actions">
+        <button id="introToggle" class="intro-toggle" type="button" aria-expanded="false" aria-controls="introPanel">
+          <span class="intro-icon"><i class="fa-solid fa-scroll"></i></span>
+          <span class="intro-text">
+            <strong>Apri guida rapida</strong>
+            <small>Regole essenziali, differenze tra negozi, acquisti e attivazioni</small>
+          </span>
+          <i class="fa-solid fa-chevron-down intro-chevron"></i>
+        </button>
+      </div>
+      <div class="intro-panel" id="introPanel" hidden>
+        <div class="intro-grid intro-grid-top">
+          <article class="intro-card route-card">
+            <h3><i class="fa-solid fa-map"></i> Indice rapido</h3>
+            <div class="route-list">
+              <span><i class="fa-solid fa-street-view"></i> Diagon Alley</span>
+              <span><i class="fa-solid fa-village"></i> Hogsmeade</span>
+              <span><i class="fa-solid fa-moon"></i> Notturn Alley</span>
+            </div>
+            <p>Le descrizioni complete dei singoli negozi restano consultabili nelle rispettive sezioni del forum. Qui trovi i prezzari e le specifiche degli oggetti acquistabili.</p>
+          </article>
+          <article class="intro-card note-card">
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Cose da ricordare</h3>
+            <ul>
+              <li><strong>Virtuosi</strong> = merce legale, ambientazione arancione.</li>
+              <li><strong>Sinistri</strong> = merce illegale o proibita, ambientazione nera e rossa.</li>
+              <li><strong>Venduto anche…</strong> indica lo stesso oggetto disponibile in altri negozi.</li>
+              <li>Le versioni del <strong>Mercato degli Elfi</strong> costano meno ma sono più deboli o durano meno.</li>
+              <li>Le varianti dei negozi <strong>Sinistri</strong> spesso costano di più, sono più forti e possono costituire <strong>Azione Illegale</strong> <i class="fa-solid fa-ban"></i>.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="intro-grid">
+          <article class="intro-card">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Come si acquista</h3>
+            <p>Per acquistare un oggetto basta segnalarlo nella propria <strong>Lista della Spesa</strong>. Se un oggetto ha più tipologie o varianti, va specificato quale si desidera acquistare.</p>
+            <p>Gli acquisti possono essere ruolati anche solo come colore ONGame: l'effettivo ottenimento dell'oggetto avviene quando viene speso il costo in Galeoni tramite Commercio.</p>
+          </article>
+          <article class="intro-card">
+            <h3><i class="fa-solid fa-hat-wizard"></i> Studenti e acquisti a distanza</h3>
+            <p>Se uno Studente non può raggiungere Diagon o Notturn Alley durante l'anno, si può assumere che ordini l'oggetto per corrispondenza e lo riceva per posta, da background o come nota di colore nelle role.</p>
+          </article>
+          <article class="intro-card activation-card">
+            <h3><i class="fa-solid fa-bolt"></i> Tipi di attivazione</h3>
+            <div class="activation-list">
+              <span><strong>1 azione</strong><small>Si attiva ONGame durante la role e consuma un'azione.</small></span>
+              <span><strong>OFF</strong><small>Si considera attivo OFFGame, senza bisogno di ruolarne l'attivazione.</small></span>
+              <span><strong>1 azione se in role, o OFF</strong><small>Può essere usato in entrambi i modi, a scelta del PG.</small></span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="finder" aria-label="Ricerca catalogo e consultazione">
+      <div class="finder-main">
+        <label class="magic-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchInput" type="search" placeholder="Cerca qualsiasi cosa: nome, negozio, bonus, prezzo, usi, post…" autocomplete="off">
+          <button id="clearSearch" class="clear-search" type="button" aria-label="Cancella ricerca" title="Cancella ricerca"><i class="fa-solid fa-xmark"></i></button>
+        </label>
+        <label class="quick-shop">
+          <i class="fa-solid fa-store"></i>
+          <select id="shopQuickSelect" aria-label="Vai rapidamente a un negozio">
+            <option value="all">Vai al negozio…</option>
+          </select>
+        </label>
+        
+      </div>
+
+      <div class="district-nav" id="districtNav" aria-label="Tipo di negozio">
+        <button class="district-btn active" type="button" data-tone="all"><i class="fa-solid fa-sparkles"></i>Tutti</button>
+        <button class="district-btn" type="button" data-tone="virtuoso"><i class="fa-solid fa-shield-heart"></i>Virtuosi</button>
+        <button class="district-btn" type="button" data-tone="sinistro"><i class="fa-solid fa-skull"></i>Sinistri</button>
+      </div>
+
+      <div class="shop-rail-wrap">
+        <button class="rail-arrow left" id="railLeft" aria-label="Scorri negozi"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="shop-rail" id="shopRail" role="tablist" aria-label="Negozi"></div>
+        <button class="rail-arrow right" id="railRight" aria-label="Scorri negozi"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+
+      <section class="shop-overview" id="shopOverview" hidden aria-live="polite">
+        <div class="shop-overview-icon"><i id="shopOverviewIcon" class="fa-solid fa-store"></i></div>
+        <div class="shop-overview-copy">
+          <div class="shop-overview-topline">
+            <span class="shop-kind"><i class="shop-kind-dot"></i><span id="shopKindLabel">Negozio</span></span>
+            <span class="shop-overview-label">Cosa vende</span>
+          </div>
+          <h3 id="shopOverviewName"></h3>
+          <p id="shopOverviewDescription"></p>
+          <div class="shop-category-list" id="shopCategoryList"></div>
+        </div>
+      </section>
+
+      <button id="filtersToggle" class="filter-accordion-toggle" type="button" aria-expanded="false" aria-controls="filterPanel">
+        <span class="filter-accordion-icon"><i class="fa-solid fa-sliders"></i></span>
+        <span class="filter-accordion-copy">
+          <strong>Filtri avanzati</strong>
+          <small>Prezzo, bonus, parametro, usi, post, negozio, categoria e qualsiasi altro criterio</small>
+        </span>
+        <span class="filter-accordion-meta">
+          <b id="filterCountBadge" class="filter-count" hidden>0</b>
+          <i class="fa-solid fa-chevron-down filter-chevron"></i>
+        </span>
+      </button>
+
+      <div class="filter-panel advanced-filters" id="filterPanel" hidden>
+        <div class="filter-panel-head compact-filter-head">
+          <small>Combina liberamente tutti i criteri che ti servono.</small>
+          <button id="resetFiltersBtn" class="reset-filters" type="button"><i class="fa-solid fa-rotate-left"></i> Azzera filtri</button>
+        </div>
+
+        <label>
+          <span>Cerca in</span>
+          <select id="searchFieldFilter">
+            <option value="all">Qualsiasi campo</option>
+            <option value="name">Nome oggetto</option>
+            <option value="shop">Negozio</option>
+            <option value="category">Categoria / tipo oggetto</option>
+            <option value="effect">Bonus / effetto</option>
+            <option value="uses">Usi / post / durata</option>
+            <option value="function">Funzione</option>
+            <option value="activation">Attivazione</option>
+            <option value="description">Descrizione</option>
+            <option value="price">Prezzo</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Negozio</span>
+          <select id="shopFilter">
+            <option value="all">Tutti i negozi</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Categoria / oggetto</span>
+          <select id="categoryFilter"><option value="all">Tutte le categorie</option></select>
+        </label>
+
+        <label>
+          <span>Legalità</span>
+          <select id="legalityFilter">
+            <option value="all">Tutte</option>
+            <option value="legale">Legale</option>
+            <option value="illegale">Illegale</option>
+            <option value="misto">Con varianti</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Funzione</span>
+          <select id="functionFilter"><option value="all">Tutte le funzioni</option></select>
+        </label>
+
+        <label>
+          <span>Attivazione</span>
+          <select id="activationFilter"><option value="all">Qualsiasi attivazione</option></select>
+        </label>
+
+        <label>
+          <span>Parametro / bonus / effetto</span>
+          <input id="effectFilter" type="search" list="effectSuggestions" placeholder="es. Destrezza, Fatica, Salute…" autocomplete="off">
+          <datalist id="effectSuggestions">
+            <option value="Destrezza"></option>
+            <option value="Fatica"></option>
+            <option value="Resistenza"></option>
+            <option value="Salute"></option>
+            <option value="Forza"></option>
+            <option value="Acume"></option>
+            <option value="Percezione"></option>
+            <option value="Volontà"></option>
+            <option value="possibilità"></option>
+            <option value="malus"></option>
+            <option value="bonus"></option>
+          </datalist>
+        </label>
+
+        <label>
+          <span>Usi / post / durata</span>
+          <input id="usesFilter" type="search" placeholder="es. 3 usi, 50 post, permanente…" autocomplete="off">
+        </label>
+
+        <label>
+          <span>Prezzo minimo</span>
+          <div class="number-field"><input id="minPriceFilter" type="number" min="0" step="1" placeholder="0"><b>G</b></div>
+        </label>
+
+        <label>
+          <span>Prezzo massimo</span>
+          <div class="number-field"><input id="maxPriceFilter" type="number" min="0" step="1" placeholder="Nessun limite"><b>G</b></div>
+        </label>
+
+        <label>
+          <span>Varianti di mercato</span>
+          <select id="variantFilter">
+            <option value="all">Indifferente</option>
+            <option value="yes">Solo con varianti</option>
+            <option value="no">Solo senza varianti</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Ordina</span>
+          <select id="sortFilter">
+            <option value="featured">In evidenza</option>
+            <option value="name">Nome A–Z</option>
+            <option value="shop">Negozio A–Z</option>
+            <option value="category">Categoria A–Z</option>
+            <option value="priceAsc">Prezzo crescente</option>
+            <option value="priceDesc">Prezzo decrescente</option>
+          </select>
+        </label>
+
+        <div class="filter-help">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <div>
+            <strong>Ricerca universale</strong>
+            <span>La barra principale cerca anche dentro prezzi, negozi alternativi, usi, post, bonus, effetti e descrizioni. Puoi scrivere più parole: verranno cercate tutte.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-heading">
+      <div>
+        <p class="eyebrow" id="collectionEyebrow">Catalogo generale</p>
+        <h2 id="collectionTitle">Oggetti in evidenza</h2>
+      </div>
+      <div class="view-actions">
+        <button class="view-btn active" id="gridBtn" title="Vista schede"><i class="fa-solid fa-grip"></i></button>
+        <button class="view-btn" id="listBtn" title="Vista lista"><i class="fa-solid fa-bars-staggered"></i></button>
+      </div>
+    </section>
+
+    <section id="cards" class="cards"></section>
+
+    <section id="emptyState" class="empty-state" hidden>
+      <div class="empty-sigil"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+      <h3>Nessun oggetto trovato</h3>
+      <p>Prova un altro nome oppure rimuovi uno dei filtri.</p>
+      <button id="resetBtn" type="button">Azzera la ricerca</button>
+    </section>
+
+    <div class="catalog-note"><i class="fa-solid fa-circle-info"></i><p><strong>Nota di lavorazione:</strong> in questa versione i <strong>24 negozi</strong> sono già registrati, ma il caricamento dei <strong>singoli oggetti</strong> è ancora in corso. L’interfaccia è quindi quasi definitiva; il catalogo completo arriverà con la mappatura totale dei prezzari.</p></div>
+
+    <footer class="catalog-footer">
+      <span class="footer-line"></span>
+      <i class="fa-solid fa-star"></i>
+      <p>Catalogo di consultazione · Gli acquisti vengono effettuati tramite la Lista della Spesa</p>
+      <i class="fa-solid fa-star"></i>
+      <span class="footer-line"></span>
+    </footer>
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="detail-drawer" id="detailDrawer" aria-hidden="true">
+    <button class="drawer-close" id="drawerClose" type="button" aria-label="Chiudi"><i class="fa-solid fa-xmark"></i></button>
+    <div id="drawerContent"></div>
+  </aside>
+
+  <script>
+window.CATALOG_DATA = {
+  /* ============================================================
+     PREZZARI — BLOCCO DA MODIFICARE
+     ------------------------------------------------------------
+     Per cambiare un prezzo: modifica solo "price".
+     Per cambiare usi/bonus: modifica "uses" / "effect".
+     Per cambiare immagine: sostituisci solo il link in "image".
+     Le varianti di altri negozi sono dentro "variants".
+     Il resto del tool si aggiorna da solo.
+     ============================================================ */
+  meta: {
+    title: "Catalogo del Mondo Magico",
+    version: "0.10-filtri-chiusi",
+    currency: "G"
+  },
+
+  /* NEGOZI: virtuosi = arancione/verde · sinistri = nero/rosso */
+  shops: {
+    quidditch: {
+      name: "Accessori di Prima Qualità per il Quidditch", slug: "quidditch", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Scope Volanti, equipaggiamento, protezioni e accessori per il volo e il Quidditch."
+    },
+    calderone: {
+      name: "Il Calderone", slug: "calderone", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Calderoni e strumenti che forniscono bonus nelle diverse fasi di preparazione delle Pozioni."
+    },
+    ghirigoro: {
+      name: "Il Ghirigoro", slug: "ghirigoro", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Manuali, testi scolastici, romanzi e biografie capaci di fornire informazioni e bonus ai Parametri."
+    },
+    mcclan: {
+      name: "Madama McClan", slug: "mcclan", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Abbigliamento per Studenti e Adulti, divise, abiti da lavoro e capi che forniscono bonus in circostanze specifiche."
+    },
+    obscurus: {
+      name: "Obscurus Books", slug: "obscurus", tone: "sinistro", primary: true, accent: "#e63131",
+      description: "Libri Oscuri, manuali e testi intrisi di Magia Oscura, con effetti e maledizioni su chi li utilizza."
+    },
+    ollivander: {
+      name: "Ollivander", slug: "ollivander", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Bacchette sostitutive e servizi dedicati al recupero o al miglioramento delle prestazioni della Bacchetta."
+    },
+    serraglio: {
+      name: "Il Serraglio Stregato", slug: "serraglio", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Creature Magiche, animali da compagnia, licenze e strumenti per cura, allevamento e interazione."
+    },
+    speziale: {
+      name: "Lo Speziale", slug: "speziale", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Pozioni e Ingredienti Legali, oltre a Strumenti Medimagici per cura dei Sintomi e Guarigione."
+    },
+    tirivispi: {
+      name: "Tiri Vispi Weasley", slug: "tirivispi", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Scherzi Magici e Merendine Marinare, tra gli articoli più popolari fra giovani maghi e streghe."
+    },
+    wingsworth: {
+      name: "Wingsworth Motors", slug: "wingsworth", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Veicoli Volanti affidabili e sicuri, caratterizzati principalmente da Destrezza e Resistenza."
+    },
+    wiseacre: {
+      name: "Wiseacre's: Il Telescopio", slug: "wiseacre", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Oggetti e strumenti necessari o utili alle pratiche di Divinazione, Astronomia e Antiche Rune."
+    },
+    bazaar: {
+      name: "Bazaar della Fortuna", slug: "bazaar", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Amuleti magici che aumentano possibilità o facce del dado durante determinate azioni."
+    },
+    zonko: {
+      name: "Emporio degli scherzi di Zonko", slug: "zonko", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Scherzi Magici e articoli goliardici, particolarmente popolari tra gli studenti di Hogwarts."
+    },
+    falce: {
+      name: "Falce di Luna", slug: "falce", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Piante Magiche in Germinazione, strumenti per la coltivazione e oggetti utili all'interazione con le Piante."
+    },
+    forgia: {
+      name: "Forgia dei Goblin", slug: "forgia", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Equipaggiamenti forgiati con metalli goblin, più resistenti del normale e orientati alla Resistenza."
+    },
+    corvocandito: {
+      name: "Il Corvo Candito", slug: "corvocandito", tone: "sinistro", primary: true, accent: "#e63131",
+      description: "Merci Illegali normalmente reperibili a Notturn Alley, disponibili anche a Hogsmeade."
+    },
+    mielandia: {
+      name: "Mielandia", slug: "mielandia", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Dolci, caramelle e specialità magiche che possono aumentare i Punti Post ottenuti al termine delle role."
+    },
+    mondomago: {
+      name: "Mondomago", slug: "mondomago", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Oggetti Magici di varia utilità e servizio di riparazione per Oggetti Magici rotti."
+    },
+    scrivenshaft: {
+      name: "Scrivenshaft", slug: "scrivenshaft", tone: "virtuoso", primary: true, accent: "#d57e00",
+      description: "Cancelleria e strumenti per Studenti e Adulti, utili a voti, Punti Post, altri punti o creazione di Oggetti."
+    },
+    candele: {
+      name: "Candele Velenose per Ogni Occasione", slug: "candele", tone: "sinistro", primary: true, accent: "#e63131",
+      description: "Pozioni Fatturanti, Veleni, Pozioni e Ingredienti Illegali, oltre a parte del catalogo legale dello Speziale."
+    },
+    magianera: {
+      name: "Emporio di Magia Nera", slug: "magianera", tone: "sinistro", primary: true, accent: "#e63131",
+      description: "Oggetti e strumenti legati alla Magia Nera, spesso destinati a danneggiare bersagli o abilitare Conoscenze Oscure."
+    },
+    magiesinister: {
+      name: "Magie Sinister", slug: "magiesinister", tone: "sinistro", primary: true, accent: "#e63131",
+      description: "Oggetti Magici Oscuri, Bacchette e Pozioni potenziate, oltre a riparazioni di Oggetti Legali e Illegali."
+    },
+    ragni: {
+      name: "Negozio di Ragni Giganti", slug: "ragni", tone: "sinistro", primary: true, accent: "#e63131",
+      description: "Creature Magiche Illegali in fase di Infanzia provenienti da Riserve clandestine."
+    },
+    terrifico: {
+      name: "Il Terrifico", slug: "terrifico", tone: "sinistro", primary: true, accent: "#e63131",
+      description: "Piante Magiche Illegali in fase di Germinazione e prodotti proibiti destinati alla loro coltivazione."
+    },
+
+    /* Mercato alternativo: ricercabile nelle varianti, ma NON è uno dei 24 prezzari principali. */
+    elfi: {
+      name: "Mercato degli Elfi", slug: "elfi", tone: "virtuoso", primary: false, accent: "#d57e00",
+      description: "Mercato alternativo che propone versioni economiche di numerosi articoli."
+    }
+  },
+
+  items: [
+
+    {
+      id: "bluebottle-3",
+      name: "Bluebottle 3",
+      shop: "quidditch",
+      category: "Scope da Viaggio",
+      legality: "misto",
+      featured: 10,
+      price: 100,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 12 · Fatica -2 al termine della role per i 10 post successivi · Resistenza 400.",
+      summary: "Scopa da viaggio comoda e molto resistente, adatta anche a due passeggeri.",
+      description: "Scopa volante dal sellino molto spazioso, comoda per lunghi viaggi e ideale se si viaggia in compagnia. Non è particolarmente veloce ma garantisce un'eccellente manovrabilità.",
+      image: "https://i.postimg.cc/cCTjw6hn/Bluebottle.webp",
+      symbol: "✦",
+      variants: [
+        { shop: "elfi", price: 50, uses: "-40 Resistenza ad uso", effect: "Destrezza 6 · Fatica -4 · Resistenza 200", legality: "legale" }
+      ]
+    },
+    {
+      id: "moontrimmer",
+      name: "Moontrimmer",
+      shop: "quidditch",
+      category: "Scope da Viaggio",
+      legality: "misto",
+      featured: 9,
+      price: 200,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 15 · Fatica -1 al termine della role per i 10 post successivi · Resistenza 350.",
+      summary: "Scopa leggera e maneggevole pensata per gli spostamenti.",
+      description: "Scopa in legno di frassino adatta per brevi spostamenti, particolarmente leggera e maneggevole, dotata di ampie sacche incantate per i bagagli.",
+      image: "https://i.postimg.cc/gjK1Nmp8/Moon-trimmer-broom-2-1.jpg",
+      symbol: "✧",
+      variants: [
+        { shop: "elfi", price: 100, uses: "-40 Resistenza ad uso", effect: "Destrezza 8 · Fatica -1 · Resistenza 175", legality: "legale" }
+      ]
+    },
+    {
+      id: "stellafreccia",
+      name: "Stellafreccia",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 8,
+      price: 140,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 10 · Fatica -3 al termine della role per i 10 post successivi · Resistenza 150.",
+      summary: "Scopa stabile e sicura, particolarmente adatta ai principianti.",
+      description: "Eccellente scopa da scuola di volo, comoda e stabile; non è pensata per manovre aeree troppo complesse.",
+      image: "https://i.postimg.cc/13WnbqBY/Bright-spark-broom-2-1.jpg",
+      symbol: "✦",
+      variants: [
+        { shop: "elfi", price: 70, uses: "-40 Resistenza ad uso", effect: "Destrezza 10 · Fatica -6 · Resistenza 75", legality: "legale" }
+      ]
+    },
+    {
+      id: "tinderblast",
+      name: "Tinderblast",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 8,
+      price: 210,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 15 · Fatica -2,5 · Resistenza 140.",
+      summary: "Affidabile, stabile e sicura, pur senza essere tra le più veloci.",
+      description: "La Tinderblast è nota per la sua affidabilità e per una stabilità superiore, caratteristiche che la rendono una scelta sicura.",
+      image: "https://i.postimg.cc/sDk07M7q/Yew-weaver-broom-2-1.jpg",
+      symbol: "✶",
+      variants: [
+        { shop: "elfi", price: 105, uses: "-40 Resistenza ad uso", effect: "Destrezza 15 · Fatica -2,5 · Resistenza 70", legality: "legale" }
+      ]
+    },
+    {
+      id: "swiftstick",
+      name: "Swiftstick",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 8,
+      price: 280,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 20 · Fatica -2 · Resistenza 250.",
+      summary: "Scopa veloce e affusolata, adatta a virate rapide.",
+      description: "Più veloce della Tinderblast e particolarmente adatta ai Cercatori, ma meno affidabile in salita.",
+      image: "https://i.postimg.cc/BnZNx2th/image.png",
+      symbol: "✧",
+      variants: [
+        { shop: "elfi", price: 140, uses: "-40 Resistenza ad uso", effect: "Destrezza 20 · Fatica -4 · Resistenza 250", legality: "legale" }
+      ]
+    },
+    {
+      id: "comet-370",
+      name: "Comet 370",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 7,
+      price: 350,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 25 · Fatica -1,5 · Resistenza 300.",
+      summary: "Scopa agile e leggera, adatta a impennate e picchiate.",
+      description: "Una scopa da Quidditch leggera e pratica, capace di buone manovre ma meno competitiva nell'accelerazione da fermo.",
+      image: "https://i.postimg.cc/3JYZT2jK/hogwarts-legacy-house-broom-hufflepuff-1.jpg",
+      symbol: "✦",
+      variants: [
+        { shop: "elfi", price: 175, uses: "-40 Resistenza ad uso", effect: "Destrezza 25 · Fatica -3 · Resistenza 150", legality: "legale" }
+      ]
+    },
+    {
+      id: "scopalinda-20",
+      name: "Scopalinda 20",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 7,
+      price: 420,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 30 · Fatica -1 · Resistenza 250.",
+      summary: "Leggera, pratica e veloce, ma più delicata in fase di frenata.",
+      description: "La Scopalinda è una scopa veloce e resistente, con difficoltà in fase di frenatura che richiedono particolare attenzione.",
+      image: "https://i.postimg.cc/RCRHwyfB/night-dancer-best-broom-hogwarts-legacy-1.jpg",
+      symbol: "✷",
+      variants: [
+        { shop: "elfi", price: 210, uses: "-40 Resistenza ad uso", effect: "Destrezza 30 · Fatica -2 · Resistenza 250", legality: "legale" }
+      ]
+    },
+    {
+      id: "nimbus-z",
+      name: "Nimbus Z",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 7,
+      price: 490,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 35 · Fatica -1,5 · Resistenza 200.",
+      summary: "Scopa estremamente veloce che richiede un buon controllo dell'equilibrio.",
+      description: "La Nimbus Z è una scopa molto veloce e resistente, ma può causare perdita di equilibrio durante l'uso.",
+      image: "https://i.postimg.cc/rF7F4NhT/silver-arrow-hogwarts-legacy-broom-1.jpg",
+      symbol: "✦",
+      variants: [
+        { shop: "elfi", price: 245, uses: "-40 Resistenza ad uso", effect: "Destrezza 35 · Fatica -3 · Resistenza 200", legality: "legale" }
+      ]
+    },
+    {
+      id: "firebolt-major",
+      name: "Firebolt Major",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 9,
+      price: 560,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 40 · Fatica -1 · Resistenza 150.",
+      summary: "Scopa estremamente veloce, spinta da un propulsore molto performante.",
+      description: "Una scopa da Quidditch molto veloce con resistenza media; il propulsore è potente ma richiede attenzione.",
+      image: "https://oyster.ignimgs.com/mediawiki/apis.ign.com/hogwarts-legacy/7/74/Ember_dash_broom.jpg?width=640",
+      symbol: "✹",
+      variants: [
+        { shop: "elfi", price: 280, uses: "-40 Resistenza ad uso", effect: "Destrezza 40 · Fatica -2 · Resistenza 75", legality: "legale" }
+      ]
+    },
+    {
+      id: "thunderbolt-7",
+      name: "Thunderbolt 7",
+      shop: "quidditch",
+      category: "Scope da Quidditch",
+      legality: "misto",
+      featured: 10,
+      price: 630,
+      function: "Passivo",
+      activation: "1 azione",
+      uses: "-40 Resistenza ad uso",
+      effect: "Destrezza 45 · Fatica -0,5 · Resistenza 100.",
+      summary: "La più veloce della fascia, costruita con materiali estremamente leggeri.",
+      description: "Scopa da Quidditch estremamente veloce ma meno resistente, pensata per prestazioni elevate e giocatori esperti.",
+      image: "https://i.postimg.cc/vmdcSrk5/Sky-Scythe-Broom.jpg",
+      symbol: "✦",
+      variants: [
+        { shop: "elfi", price: 315, uses: "-40 Resistenza ad uso", effect: "Destrezza 45 · Fatica -4 · Resistenza 100", legality: "legale" }
+      ]
+    },
+    {
+      id: "divisa-quidditch",
+      name: "Divisa da Quidditch",
+      shop: "quidditch",
+      category: "Vestiario e Accessori",
+      legality: "legale",
+      featured: 7,
+      price: 150,
+      function: "Passivo",
+      activation: "OFF",
+      uses: "30 post",
+      effect: "+5 Destrezza",
+      summary: "Divisa tecnica leggera e resistente, pensata per il gioco in volo.",
+      description: "Equipaggiamento da Quidditch realizzato con tessuti leggeri e traspiranti che favoriscono libertà di movimento e comodità.",
+      image: "https://i.postimg.cc/pTX9vDv4/0a180aa5-fecb-4b44-988c-3fa9dae8e4da-jpg.png",
+      symbol: "✦",
+      variants: [
+        { shop: "elfi", price: 75, uses: "15 post", effect: "+2 Destrezza", legality: "legale" }
+      ]
+    },
+    {
+      id: "casco-quidditch",
+      name: "Casco da Quidditch",
+      shop: "quidditch",
+      category: "Vestiario e Accessori",
+      legality: "legale",
+      featured: 6,
+      price: 50,
+      function: "Passivo",
+      activation: "OFF",
+      uses: "40 post",
+      effect: "-20% malus sui Parametri Fisici",
+      summary: "Protezione per testa e volto durante partite e allenamenti.",
+      description: "Casco realizzato con materiali resistenti e dotato di visiera protettiva per ridurre l'impatto di urti e cadute.",
+      image: "https://i.imgur.com/GvmKxs7.png",
+      symbol: "◉",
+      variants: [
+        { shop: "elfi", price: 25, uses: "20 post", effect: "-10% malus sui Parametri Fisici", legality: "legale" }
+      ]
+    },
+    {
+      id: "guanti-quidditch",
+      name: "Guanti da Quidditch",
+      shop: "quidditch",
+      category: "Equipaggiamento",
+      legality: "misto",
+      featured: 8,
+      price: 70,                         // <-- PREZZO PRINCIPALE
+      function: "Passivo",
+      activation: "OFF",
+      uses: "50 post",                  // <-- USI
+      effect: "+3 possibilità sulle azioni", // <-- BONUS
+      summary: "Proteggono le mani e migliorano presa e precisione durante il gioco.",
+      description: "Sono parte dell'equipaggiamento indossato dai giocatori per proteggere le mani durante il gioco. Realizzati in materiali resistenti, offrono presa e precisione, consentendo ai giocatori di tenere saldamente la Scopa e afferrare con precisione qualsiasi altro strumento tra mazze, Pluffe e Boccini.",
+      image: "https://www.filmpost.it/wp-content/uploads/2023/01/harry5-4.jpg", // <-- IMMAGINE
+      symbol: "✦",
+      variants: [
+        { shop: "elfi", price: 35, uses: "25 post", effect: "+1 possibilità", legality: "legale" }
+      ]
+    },
+    {
+      id: "creature-magiche",
+      name: "Creature Magiche",
+      shop: "serraglio",
+      category: "Creature",
+      legality: "legale",
+      featured: 10,
+      price: 150,
+      priceLabel: "da 150 G",
+      function: "Variabile",
+      activation: "—",
+      uses: "Permanenti",
+      effect: "Acquisto per classificazione; le esotiche costano +50%.",
+      summary: "Cuccioli di Creature Magiche acquistabili in base alla Classificazione.",
+      description: "Il Serraglio Stregato vende Creature Magiche in fase di Infanzia. Prima di cominciare a produrre Ingredienti e Uova/Cuccioli occorre completare le fasi previste di Fiducia e Domesticazione.",
+      image: "https://i.pinimg.com/originals/8a/d8/94/8ad89497c2a12a5d2aaa2d6cc9219f7b.jpg",
+      symbol: "♞",
+      tiers: [
+        { label: "X", price: 150 }, { label: "XX", price: 300 }, { label: "XXX", price: 600 }, { label: "XXXX", price: 1200 }, { label: "XXXXX", price: 2400 }
+      ],
+      notes: ["Creature Esotiche: +50% sul prezzo di listino.", "Le Creature Illegali sono vendute separatamente a Notturn Alley."]
+    },
+    {
+      id: "piante-magiche",
+      name: "Piante Magiche",
+      shop: "falce",
+      category: "Piante",
+      legality: "legale",
+      featured: 9,
+      price: 150,
+      priceLabel: "da 150 G",
+      function: "Variabile",
+      activation: "—",
+      uses: "Permanenti",
+      effect: "Acquisto per classificazione; le esotiche costano +50%.",
+      summary: "Germogli di Piante Magiche acquistabili in base alla Classificazione.",
+      description: "Falce di Luna vende giovani Piante Magiche in fase di Germinazione. Prima di cominciare a produrre Ingredienti e Semi è necessario completare le fasi previste di Esportazione e Collocazione.",
+      image: "https://i.pinimg.com/originals/4e/cc/b5/4eccb51149c9d2e9ba70b55ccb39cce8.jpg",
+      symbol: "❧",
+      tiers: [
+        { label: "X", price: 150 }, { label: "XX", price: 300 }, { label: "XXX", price: 600 }, { label: "XXXX", price: 1200 }, { label: "XXXXX", price: 2400 }
+      ],
+      notes: ["Piante Esotiche: +50% sul prezzo di listino.", "Le Piante Illegali sono vendute separatamente a Notturn Alley."]
+    },
+    {
+      id: "fertilizzante-mooncalf",
+      name: "Fertilizzante allo sterco di Mooncalf",
+      shop: "falce",
+      category: "Coltivazione",
+      legality: "misto",
+      featured: 7,
+      price: 50,
+      function: "Attivo",
+      activation: "1 azione se in role",
+      uses: "3 usi",
+      effect: "Estende la fiducia ottenuta con un'interazione positiva.",
+      summary: "Aiuta a estendere gli effetti di una buona interazione con gruppi di Piante.",
+      description: "Questo fertilizzante, la cui componente principale è il raro sterco di Mooncalf, unito ad altre sostanze magicamente trattate e alterate, è molto gradito dalle Piante Magiche.",
+      image: "https://media.minalima.com/2023/05/standard-gallery-02-fp91-print-2600x2600.jpg",
+      symbol: "☘",
+      variants: [
+        { shop: "elfi", price: 25, uses: "3 usi", effect: "Effetto ridotto: estensione a 1 altra Pianta e 1 altro PG", legality: "legale" },
+        { shop: "terrifico", price: 100, uses: "3 usi", effect: "Effetto potenziato, con rischio per le Piante coinvolte", legality: "illegale" }
+      ]
+    },
+    {
+      id: "specchio-divinatorio",
+      name: "Specchio Divinatorio",
+      shop: "wiseacre",
+      category: "Divinazione",
+      legality: "misto",
+      featured: 8,
+      price: 500,
+      function: "Attivo",
+      activation: "1 azione",
+      uses: "Permanente salvo rottura",
+      effect: "Utile per la Divinazione degli Specchi.",
+      summary: "Strumento permanente per pratiche divinatorie basate sul riflesso.",
+      description: "Uno specchio utilizzabile non soltanto per osservare il proprio riflesso, ma soprattutto come strumento divinatorio cui porre domande per cui si cercano risposte.",
+      image: "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI2LTAxL3NyLWltYWdlLTA5MDEyNi1ubi01LXMtNDgwXzEuanBn.jpg",
+      symbol: "◈",
+      variants: [
+        { shop: "magianera", price: 500, uses: "Permanente salvo rottura", effect: "Stessa funzione", legality: "illegale" }
+      ]
+    },
+    {
+      id: "valigia-magica",
+      name: "Valigia Magica",
+      shop: "mondomago",
+      category: "Oggetti Magici",
+      legality: "misto",
+      featured: 10,
+      price: 500,
+      function: "Passiva",
+      activation: "OFF",
+      uses: "Finché non distrutta/smarrita",
+      effect: "Consente ricerca avanzata, allevamento e coltivazione; fino a 15 posti.",
+      summary: "Un ambiente magicamente esteso per custodire, allevare e coltivare Creature e Piante.",
+      description: "La Valigia Magica consente di accedere alle fasi avanzate delle Ricerche Casuali e, in alternativa, di allevare o coltivare al suo interno Piante e Creature. La versione base dispone di 5 posti e può essere espansa fino a un massimo di 15.",
+      image: "https://i.postimg.cc/YCLgcksG/7Zuj-S-2.gif",
+      symbol: "▣",
+      variants: [
+        { shop: "magiesinister", price: 1000, uses: "Finché non distrutta/smarrita", effect: "Stesse funzioni, acquistabile anche senza licenza", legality: "illegale" }
+      ],
+      expansions: [
+        { classification: "X", prices: [30,60,90,120] },
+        { classification: "XX", prices: [50,100,150,200] },
+        { classification: "XXX", prices: [70,140,210,280] },
+        { classification: "XXXX", prices: [90,180,270,360] },
+        { classification: "XXXXX", prices: [120,240,360,480] }
+      ],
+      notes: ["Concessa gratuitamente ai PG Erbologi e Magizoologi di Mestiere in possesso di licenza, con posti base gratuiti."]
+    },
+    {
+      id: "amuleto-fortuna",
+      name: "Amuleto della Fortuna",
+      shop: "wiseacre",
+      category: "Manufatti",
+      legality: "legale",
+      featured: 6,
+      price: 100,
+      priceLabel: "da 100 G",
+      function: "Attivo",
+      activation: "OFF",
+      uses: "3 usi",
+      effect: "Concede possibilità/facce aggiuntive del dado su un'azione.",
+      summary: "Amuleto in pietra preziosa disponibile in potenze crescenti.",
+      description: "Amuleti formati da pietre preziose che, secondo la tradizione, portano fortuna a chi li indossa.",
+      image: "https://www.lussostyle.it/wp-content/uploads/2022/05/pietre-preziose.jpg",
+      symbol: "◇",
+      tiers: [
+        { label: "+1 possibilità", price: 100 }, { label: "+2 possibilità", price: 200 }, { label: "+3 possibilità", price: 400 }, { label: "+4 possibilità", price: 800 }, { label: "+5 possibilità", price: 1600 }, { label: "+6 possibilità", price: 3200 }, { label: "+7 possibilità", price: 6400 }
+      ]
+    }
+  ]
+};
+
+</script>
+  <script>
+(() => {
+  const DATA = window.CATALOG_DATA || {shops:{},items:[]};
+  const $ = s => document.querySelector(s);
+  const cards = $('#cards');
+  const search = $('#searchInput');
+  const searchField = $('#searchFieldFilter');
+  const shopFilter = $('#shopFilter');
+  const category = $('#categoryFilter');
+  const legality = $('#legalityFilter');
+  const functionFilter = $('#functionFilter');
+  const activationFilter = $('#activationFilter');
+  const effectFilter = $('#effectFilter');
+  const usesFilter = $('#usesFilter');
+  const minPriceFilter = $('#minPriceFilter');
+  const maxPriceFilter = $('#maxPriceFilter');
+  const variantFilter = $('#variantFilter');
+  const sort = $('#sortFilter');
+  const quickShop = $('#shopQuickSelect');
+  const filterCountBadge = $('#filterCountBadge');
+  const introToggle = $('#introToggle');
+  const introPanel = $('#introPanel');
+  const rail = $('#shopRail');
+  const districtNav = $('#districtNav');
+  const count = $('#resultCount');
+  const empty = $('#emptyState');
+  const drawer = $('#detailDrawer');
+  const backdrop = $('#drawerBackdrop');
+  const drawerContent = $('#drawerContent');
+  const shopOverview = $('#shopOverview');
+  const shopOverviewIcon = $('#shopOverviewIcon');
+  const shopOverviewName = $('#shopOverviewName');
+  const shopOverviewDescription = $('#shopOverviewDescription');
+  const shopKindLabel = $('#shopKindLabel');
+  const shopCategoryList = $('#shopCategoryList');
+  const params = new URLSearchParams(location.search);
+  const requestedShop = params.get('negozio');
+  const lockShop = params.get('lock') === '1';
+  let activeShop = requestedShop && DATA.shops[requestedShop] ? requestedShop : 'all';
+  let activeTone = activeShop !== 'all' ? (DATA.shops[activeShop].tone || 'all') : 'all';
+  let view = localStorage.getItem('ff_catalog_view') || 'grid';
+
+  const shopIcons = {
+    quidditch:'fa-broom-ball',
+    calderone:'fa-flask',
+    ghirigoro:'fa-book-open',
+    mcclan:'fa-shirt',
+    obscurus:'fa-book-skull',
+    ollivander:'fa-wand-magic-sparkles',
+    serraglio:'fa-dragon',
+    speziale:'fa-mortar-pestle',
+    tirivispi:'fa-face-laugh-beam',
+    wingsworth:'fa-car-side',
+    wiseacre:'fa-moon',
+    bazaar:'fa-clover',
+    zonko:'fa-masks-theater',
+    falce:'fa-seedling',
+    forgia:'fa-hammer',
+    corvocandito:'fa-crow',
+    mielandia:'fa-candy-cane',
+    mondomago:'fa-suitcase',
+    scrivenshaft:'fa-pen-nib',
+    candele:'fa-skull-crossbones',
+    magianera:'fa-book-skull',
+    magiesinister:'fa-wand-sparkles',
+    ragni:'fa-spider',
+    terrifico:'fa-seedling',
+    elfi:'fa-tags'
+  };
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  const money = v => Number.isFinite(v) ? `${new Intl.NumberFormat('it-IT').format(v)} G` : '—';
+  const shopById = id => DATA.shops[id] || {name:id,slug:id,tone:'virtuoso',accent:'#d6bb79',description:''};
+  const itemShopIds = item => [item.shop, ...(item.variants||[]).map(v=>v.shop).filter(Boolean)];
+  const variantForShop = (item, shopId) => (item.variants||[]).find(v=>v.shop===shopId);
+
+  function contextFor(item){
+    let shopId = item.shop;
+    let offer = null;
+    if(activeShop !== 'all'){
+      shopId = activeShop;
+      offer = activeShop === item.shop ? null : variantForShop(item, activeShop);
+    } else if(activeTone !== 'all' && shopById(item.shop).tone !== activeTone){
+      const v=(item.variants||[]).find(x=>shopById(x.shop).tone===activeTone);
+      if(v){ shopId=v.shop; offer=v; }
+    }
+    const shop=shopById(shopId);
+    return {
+      shopId, shop, offer,
+      price: offer?.price ?? item.price,
+      priceLabel: offer?.priceLabel ?? (offer ? null : item.priceLabel),
+      uses: offer?.uses ?? item.uses,
+      effect: offer?.effect ?? item.effect,
+      legality: offer?.legality ?? (shop.tone==='sinistro'?'illegale':item.legality)
+    };
+  }
+
+  function init(){
+    const initialFilterPanel=$('#filterPanel');
+    const initialFilterToggle=$('#filtersToggle');
+    initialFilterPanel.hidden=true;
+    initialFilterToggle.classList.remove('active');
+    initialFilterToggle.setAttribute('aria-expanded','false');
+
+    Object.values(DATA.shops).filter(s=>s.primary!==false).forEach(s=>{
+      quickShop.add(new Option(s.name,s.slug));
+      shopFilter.add(new Option(s.name,s.slug));
+    });
+    quickShop.value = activeShop;
+    shopFilter.value = activeShop;
+
+    [...new Set(DATA.items.map(x=>x.category).filter(Boolean))]
+      .sort((a,b)=>a.localeCompare(b,'it'))
+      .forEach(c=>category.add(new Option(c,c)));
+
+    [...new Set(DATA.items.map(x=>x.function).filter(Boolean))]
+      .sort((a,b)=>a.localeCompare(b,'it'))
+      .forEach(v=>functionFilter.add(new Option(v,v)));
+
+    [...new Set(DATA.items.map(x=>x.activation).filter(Boolean))]
+      .sort((a,b)=>a.localeCompare(b,'it'))
+      .forEach(v=>activationFilter.add(new Option(v,v)));
+    renderDistrictNav();
+    renderShopRail();
+    if(lockShop && activeShop !== 'all'){
+      districtNav.style.display='none';
+      $('#shopRail').closest('.shop-rail-wrap').style.display='none';
+      quickShop.closest('.quick-shop').style.display='none';
+      shopFilter.closest('label').style.display='none';
+    }
+    applyShopHero();
+    setView(view);
+    render();
+  }
+
+  function renderDistrictNav(){
+    districtNav.querySelectorAll('[data-tone]').forEach(b=>b.classList.toggle('active',b.dataset.tone===activeTone));
+  }
+
+  function renderShopRail(){
+    const shops=Object.values(DATA.shops).filter(s=>s.primary!==false && (activeTone==='all'||s.tone===activeTone));
+    const pills=[{
+      slug:'all',
+      name:activeTone==='all'?'Tutti i negozi':(activeTone==='virtuoso'?'Tutti i virtuosi':'Tutti i sinistri'),
+      tone:activeTone
+    }].concat(shops);
+    rail.innerHTML=pills.map(s=>`<button class="shop-pill ${s.slug===activeShop?'active':''}" data-tone="${esc(s.tone||'all')}" data-shop="${esc(s.slug)}"><span class="tone-dot"></span><i class="fa-solid ${s.slug==='all'?'fa-sparkles':(shopIcons[s.slug]||'fa-store')}"></i>${esc(s.name)}</button>`).join('');
+  }
+
+  function renderShopOverview(){
+    if(activeShop==='all' || !DATA.shops[activeShop]){
+      shopOverview.hidden=true;
+      return;
+    }
+    const s=DATA.shops[activeShop];
+    const categories=[...new Set(
+      DATA.items
+        .filter(item=>itemShopIds(item).includes(activeShop))
+        .map(item=>item.category)
+        .filter(Boolean)
+    )].sort((a,b)=>a.localeCompare(b,'it'));
+
+    shopOverview.hidden=false;
+    shopOverview.dataset.tone=s.tone;
+    shopOverviewIcon.className=`fa-solid ${shopIcons[s.slug]||'fa-store'}`;
+    shopOverviewName.textContent=s.name;
+    shopOverviewDescription.textContent=s.description || 'Consulta gli articoli disponibili in questo negozio.';
+    shopKindLabel.textContent=s.tone==='sinistro'?'Negozio sinistro':'Negozio virtuoso';
+    shopCategoryList.innerHTML=categories.length
+      ? categories.map(c=>`<span>${esc(c)}</span>`).join('')
+      : '<span>Articoli e servizi</span>';
+  }
+
+  function setBodyTone(tone){
+    document.body.classList.remove('tone-virtuoso','tone-sinistro');
+    if(tone==='virtuoso'||tone==='sinistro') {
+      document.body.classList.add(`tone-${tone}`);
+    }
+  }
+
+  function applyShopHero(){
+    const title=$('#pageTitle'), sub=$('#pageSubtitle'), eyebrow=$('#collectionEyebrow'), collection=$('#collectionTitle');
+    title.textContent='Prezzari dei Negozi';
+    quickShop.value=activeShop;
+    shopFilter.value=activeShop;
+    renderShopOverview();
+
+    if(activeShop !== 'all' && DATA.shops[activeShop]){
+      const s=DATA.shops[activeShop];
+      sub.textContent=s.description;
+      eyebrow.textContent=s.tone==='sinistro'?'Negozio sinistro':'Negozio virtuoso';
+      collection.textContent=s.name;
+
+      if(s.tone==='sinistro'){
+        document.documentElement.style.setProperty('--gold','#e63131');
+        document.documentElement.style.setProperty('--gold2','#ff8a8a');
+        document.documentElement.style.setProperty('--theme-primary','#e63131');
+        document.documentElement.style.setProperty('--theme-secondary','#040404');
+      }else{
+        document.documentElement.style.setProperty('--gold','#d57e00');
+        document.documentElement.style.setProperty('--gold2','#52b400');
+        document.documentElement.style.setProperty('--theme-primary','#d57e00');
+        document.documentElement.style.setProperty('--theme-secondary','#52b400');
+      }
+      setBodyTone(s.tone);
+      return;
+    }
+
+    /* Nessun negozio specifico selezionato: il tool resta neutrale,
+       anche se si stanno filtrando solo Virtuosi o solo Sinistri. */
+    setBodyTone('neutral');
+    document.documentElement.style.setProperty('--gold','#b8aa82');
+    document.documentElement.style.setProperty('--gold2','#d5ccb5');
+    document.documentElement.style.setProperty('--theme-primary','#b8aa82');
+    document.documentElement.style.setProperty('--theme-secondary','#6f7772');
+
+    if(activeTone==='virtuoso'){
+      sub.textContent='Botteghe e mercati di merce legale, tra studio, cura, viaggi e meraviglie magiche.';
+      eyebrow.textContent='Percorso virtuoso';
+      collection.textContent='Negozi Virtuosi';
+    } else if(activeTone==='sinistro'){
+      sub.textContent='Merci proibite, Magia Oscura, Creature Illegali e manufatti che non dovrebbero finire in mani inesperte.';
+      eyebrow.textContent='Percorso sinistro';
+      collection.textContent='Negozi Sinistri';
+    } else {
+      sub.textContent='';
+      eyebrow.textContent='Indice dei prezzari';
+      collection.textContent='Tutti i Negozi';
+    }
+  }
+
+  const normalize = value => String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase()
+    .replace(/\s+/g,' ')
+    .trim();
+
+  function allOfferPrices(item){
+    const prices=[];
+    if(Number.isFinite(item.price)) prices.push(item.price);
+    (item.variants||[]).forEach(v=>{ if(Number.isFinite(v.price)) prices.push(v.price); });
+    (item.tiers||[]).forEach(v=>{ if(Number.isFinite(v.price)) prices.push(v.price); });
+    (item.expansions||[]).forEach(e=>(e.prices||[]).forEach(p=>{ if(Number.isFinite(p)) prices.push(p); }));
+    return prices;
+  }
+
+  function allShopNames(item){
+    return itemShopIds(item).map(id=>shopById(id).name);
+  }
+
+  function deepText(value){
+    if(value == null) return '';
+    if(Array.isArray(value)) return value.map(deepText).join(' ');
+    if(typeof value === 'object') return Object.entries(value)
+      .filter(([key])=>key!=='image')
+      .map(([key,val])=>`${key} ${deepText(val)}`)
+      .join(' ');
+    return String(value);
+  }
+
+  function fieldText(item, field){
+    const variantEffects=(item.variants||[]).map(v=>v.effect).filter(Boolean);
+    const variantUses=(item.variants||[]).map(v=>v.uses).filter(Boolean);
+    const priceText=allOfferPrices(item).map(p=>`${p} g ${p} galeoni`).join(' ');
+    const map={
+      name:item.name,
+      shop:allShopNames(item).join(' '),
+      category:item.category,
+      effect:[item.effect,...variantEffects,...(item.notes||[]),...(item.tiers||[]).map(t=>t.label)].join(' '),
+      uses:[item.uses,...variantUses].join(' '),
+      function:item.function,
+      activation:item.activation,
+      description:[item.summary,item.description,...(item.notes||[])].join(' '),
+      price:priceText
+    };
+    if(field && field!=='all') return normalize(map[field]||'');
+    return normalize([deepText(item),allShopNames(item).join(' '),priceText].join(' '));
+  }
+
+  function queryTokens(query){
+    const q=normalize(query);
+    if(!q) return [];
+    const quoted=[...q.matchAll(/"([^"]+)"/g)].map(m=>m[1].trim()).filter(Boolean);
+    const rest=q.replace(/"[^"]+"/g,' ').split(/\s+/).filter(Boolean);
+    return [...quoted,...rest];
+  }
+
+  function textMatches(item, query, field='all'){
+    const tokens=queryTokens(query);
+    if(!tokens.length) return true;
+    const text=fieldText(item,field);
+    return tokens.every(t=>text.includes(t));
+  }
+
+  function belongsToTone(item,tone){
+    return itemShopIds(item).some(id=>shopById(id).tone===tone);
+  }
+
+  function itemLegalities(item){
+    return [item.legality,...(item.variants||[]).map(v=>v.legality)].filter(Boolean);
+  }
+
+  function priceMatches(item,min,max){
+    if(min==null && max==null) return true;
+    let prices;
+    if(activeShop!=='all'){
+      const ctx=contextFor(item);
+      prices=Number.isFinite(ctx.price)?[ctx.price]:[];
+    }else{
+      prices=allOfferPrices(item);
+    }
+    if(!prices.length) return false;
+    return prices.some(p=>(min==null||p>=min)&&(max==null||p<=max));
+  }
+
+  function activeFilterCount(){
+    let n=0;
+    if(searchField.value!=='all') n++;
+    if(activeShop!=='all') n++;
+    if(category.value!=='all') n++;
+    if(legality.value!=='all') n++;
+    if(functionFilter.value!=='all') n++;
+    if(activationFilter.value!=='all') n++;
+    if(effectFilter.value.trim()) n++;
+    if(usesFilter.value.trim()) n++;
+    if(minPriceFilter.value!=='') n++;
+    if(maxPriceFilter.value!=='') n++;
+    if(variantFilter.value!=='all') n++;
+    if(sort.value!=='featured') n++;
+    filterCountBadge.textContent=n;
+    filterCountBadge.hidden=n===0;
+  }
+
+  function filtered(){
+    const q=search.value;
+    const effectQ=effectFilter.value;
+    const usesQ=usesFilter.value;
+    const min=minPriceFilter.value===''?null:Number(minPriceFilter.value);
+    const max=maxPriceFilter.value===''?null:Number(maxPriceFilter.value);
+
+    let out=DATA.items.filter(i=>{
+      const hasVariants=(i.variants||[]).length>0;
+      const legalities=itemLegalities(i);
+      return (
+        (activeShop==='all' || itemShopIds(i).includes(activeShop)) &&
+        (activeShop!=='all' || activeTone==='all' || belongsToTone(i,activeTone)) &&
+        (category.value==='all'||i.category===category.value) &&
+        (legality.value==='all' || legalities.includes(legality.value) || (legality.value==='misto'&&i.legality==='misto')) &&
+        (functionFilter.value==='all'||i.function===functionFilter.value) &&
+        (activationFilter.value==='all'||i.activation===activationFilter.value) &&
+        (variantFilter.value==='all'||(variantFilter.value==='yes'?hasVariants:!hasVariants)) &&
+        textMatches(i,q,searchField.value) &&
+        textMatches(i,effectQ,'effect') &&
+        textMatches(i,usesQ,'uses') &&
+        priceMatches(i,min,max)
+      );
+    });
+
+    if(sort.value==='name') out.sort((a,b)=>a.name.localeCompare(b.name,'it'));
+    else if(sort.value==='shop') out.sort((a,b)=>shopById(a.shop).name.localeCompare(shopById(b.shop).name,'it')||a.name.localeCompare(b.name,'it'));
+    else if(sort.value==='category') out.sort((a,b)=>(a.category||'').localeCompare(b.category||'','it')||a.name.localeCompare(b.name,'it'));
+    else if(sort.value==='priceAsc') out.sort((a,b)=>(contextFor(a).price??Infinity)-(contextFor(b).price??Infinity));
+    else if(sort.value==='priceDesc') out.sort((a,b)=>(contextFor(b).price??-1)-(contextFor(a).price??-1));
+    else out.sort((a,b)=>(b.featured||0)-(a.featured||0)||a.name.localeCompare(b.name,'it'));
+
+    activeFilterCount();
+    return out;
+  }
+
+  function badges(item,ctx){
+    let html=`<span class="badge">${esc(item.category)}</span><span class="badge tone-${esc(ctx.shop.tone)}">${ctx.shop.tone==='sinistro'?'Sinistro':'Virtuoso'}</span>`;
+    if(ctx.legality==='illegale') html+=`<span class="badge illegal">Illegale</span>`;
+    else if(item.legality==='misto' && activeShop==='all' && activeTone==='all') html+=`<span class="badge variant">Più mercati</span>`;
+    return html;
+  }
+
+  function image(item){
+    return `<img src="${esc(item.image||'')}" alt="${esc(item.name)}" loading="lazy" onerror="this.nextElementSibling.style.display='grid';this.remove()"><div class="media-fallback" style="display:none">${esc(item.symbol||'✦')}</div>`;
+  }
+
+  function card(item){
+    const ctx=contextFor(item), s=ctx.shop;
+    const priceText=ctx.priceLabel||money(ctx.price);
+    return `<article class="product-card" style="--accent:${esc(s.accent)}" data-open="${esc(item.id)}" tabindex="0">
+      <div class="card-media">${image(item)}<div class="card-badges">${badges(item,ctx)}</div><div class="media-ornament"><i class="fa-solid ${shopIcons[ctx.shopId]||'fa-star'}"></i></div><div class="price-seal"><strong>${esc(priceText)}</strong><small>prezzo</small></div></div>
+      <div class="card-content">
+        <p class="card-shop">${esc(s.name)}</p>
+        <h3 class="card-title">${esc(item.name)}</h3>
+        <p class="card-summary">${esc(item.summary||item.description||ctx.effect)}</p>
+        <div class="card-stats"><div class="mini-stat"><span>Funzione</span><strong>${esc(item.function||'—')}</strong></div><div class="mini-stat"><span>Usi</span><strong title="${esc(ctx.uses||'—')}">${esc(ctx.uses||'—')}</strong></div></div>
+        <div class="effect-band">${esc(ctx.effect||'—')}</div>
+        <div class="open-hint"><span>Apri la scheda completa</span><i class="fa-solid fa-arrow-right-long"></i></div>
+      </div>
+    </article>`;
+  }
+
+  function shopContextCount(){
+    const primary=Object.values(DATA.shops).filter(s=>s.primary!==false);
+    if(activeShop!=='all') return DATA.shops[activeShop]?.primary===false ? 0 : 1;
+    if(activeTone==='virtuoso'||activeTone==='sinistro') return primary.filter(s=>s.tone===activeTone).length;
+    return primary.length;
+  }
+
+  function render(){
+    const items=filtered();
+    count.textContent=shopContextCount();
+    cards.innerHTML=items.map(card).join('');
+    empty.hidden=items.length>0;
+    cards.hidden=items.length===0;
+    resizeParent();
+  }
+
+  function tiers(item){
+    if(!item.tiers?.length) return '';
+    return `<section class="detail-block"><h3><i class="fa-solid fa-layer-group"></i>Fasce disponibili</h3><table><thead><tr><th>Livello / bonus</th><th>Prezzo</th></tr></thead><tbody>${item.tiers.map(t=>`<tr><td>${esc(t.label)}</td><td class="price-cell">${money(t.price)}</td></tr>`).join('')}</tbody></table></section>`;
+  }
+  function variants(item){
+    if(!item.variants?.length) return '';
+    return `<section class="detail-block"><h3><i class="fa-solid fa-store"></i>Mercati e varianti</h3><table><thead><tr><th>Mercato</th><th>Tipo</th><th>Prezzo</th><th>Usi</th><th>Effetto</th></tr></thead><tbody>${item.variants.map(v=>{const s=shopById(v.shop);return `<tr><td class="${s.tone==='sinistro'?'illegal-text':''}">${esc(s.name)}</td><td>${s.tone==='sinistro'?'Sinistro':'Virtuoso'}</td><td class="price-cell">${money(v.price)}</td><td>${esc(v.uses||'—')}</td><td>${esc(v.effect||'—')}</td></tr>`}).join('')}</tbody></table></section>`;
+  }
+  function expansions(item){
+    if(!item.expansions?.length) return '';
+    return `<section class="detail-block"><h3><i class="fa-solid fa-up-right-and-down-left-from-center"></i>Espansioni</h3><table><thead><tr><th>Class.</th><th>1ª</th><th>2ª</th><th>3ª</th><th>4ª</th></tr></thead><tbody>${item.expansions.map(e=>`<tr><td><strong>${esc(e.classification)}</strong></td>${e.prices.map(p=>`<td class="price-cell">${money(p)}</td>`).join('')}</tr>`).join('')}</tbody></table></section>`;
+  }
+  function notes(item){
+    if(!item.notes?.length) return '';
+    return `<section class="detail-block"><h3><i class="fa-solid fa-circle-info"></i>Note</h3><div class="detail-copy">${item.notes.map(n=>`<div class="notice">${esc(n)}</div>`).join('<div style="height:7px"></div>')}</div></section>`;
+  }
+
+  function openItem(id){
+    const item=DATA.items.find(x=>x.id===id); if(!item) return;
+    const ctx=contextFor(item), s=ctx.shop;
+    drawer.style.setProperty('--accent',s.accent);
+    drawerContent.innerHTML=`<div class="drawer-hero"><img src="${esc(item.image||'')}" alt="${esc(item.name)}" onerror="this.remove()"><div class="drawer-hero-copy"><div class="drawer-shop">${esc(s.name)} · ${esc(item.category)}</div><h2>${esc(item.name)}</h2><p>${esc(item.summary||ctx.effect)}</p><span class="shop-tone-label"><i class="fa-solid ${s.tone==='sinistro'?'fa-skull':'fa-shield-heart'}"></i>${s.tone==='sinistro'?'Negozio sinistro':'Negozio virtuoso'}</span></div></div>
+    <div class="drawer-body"><div class="drawer-stats"><div class="drawer-stat price"><span>Prezzo</span><strong>${esc(ctx.priceLabel||money(ctx.price))}</strong></div><div class="drawer-stat"><span>Funzione</span><strong>${esc(item.function||'—')}</strong></div><div class="drawer-stat"><span>Attivazione</span><strong>${esc(item.activation||'—')}</strong></div><div class="drawer-stat"><span>Usi</span><strong>${esc(ctx.uses||'—')}</strong></div></div>
+    <section class="detail-block"><h3><i class="fa-solid fa-bolt"></i>Effetti OFF</h3><div class="effect-box">${esc(ctx.effect||'—')}</div></section>
+    ${item.description?`<section class="detail-block"><h3><i class="fa-solid fa-feather-pointed"></i>Descrizione ON</h3><div class="detail-copy"><p>${esc(item.description)}</p></div></section>`:''}
+    ${tiers(item)}${variants(item)}${expansions(item)}${notes(item)}</div>`;
+    backdrop.hidden=false; drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+  }
+  function closeDrawer(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{backdrop.hidden=true;resizeParent()},280)}
+  function setView(v){view=v;localStorage.setItem('ff_catalog_view',v);cards.classList.toggle('list-view',v==='list');$('#gridBtn').classList.toggle('active',v==='grid');$('#listBtn').classList.toggle('active',v==='list');resizeParent()}
+  function reset(){
+    search.value='';
+    searchField.value='all';
+    category.value='all';
+    legality.value='all';
+    functionFilter.value='all';
+    activationFilter.value='all';
+    effectFilter.value='';
+    usesFilter.value='';
+    minPriceFilter.value='';
+    maxPriceFilter.value='';
+    variantFilter.value='all';
+    sort.value='featured';
+    if(!lockShop){
+      activeShop='all';
+      activeTone='all';
+      quickShop.value='all';
+      shopFilter.value='all';
+      renderDistrictNav();
+      renderShopRail();
+      applyShopHero();
+    }
+    render();
+  }
+  function resizeParent(){requestAnimationFrame(()=>{const h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);parent.postMessage({type:'FF_MAGIC_CATALOG_HEIGHT',height:h},'*')})}
+
+  districtNav.addEventListener('click',e=>{
+    const b=e.target.closest('[data-tone]'); if(!b||lockShop) return;
+    activeTone=b.dataset.tone; activeShop='all'; quickShop.value='all'; shopFilter.value='all'; renderDistrictNav(); renderShopRail(); applyShopHero(); render();
+  });
+  quickShop.addEventListener('change',()=>{
+    if(lockShop) return;
+    activeShop=quickShop.value;
+    shopFilter.value=activeShop;
+    if(activeShop!=='all') activeTone=shopById(activeShop).tone;
+    else activeTone='all';
+    renderDistrictNav(); renderShopRail(); applyShopHero(); render();
+  });
+  rail.addEventListener('click',e=>{
+    const b=e.target.closest('[data-shop]');if(!b||lockShop)return;
+    activeShop=b.dataset.shop;
+    quickShop.value=activeShop;
+    shopFilter.value=activeShop;
+    if(activeShop!=='all') activeTone=shopById(activeShop).tone;
+    renderDistrictNav(); renderShopRail(); applyShopHero(); render();
+  });
+  [search,effectFilter,usesFilter,minPriceFilter,maxPriceFilter].forEach(el=>el.addEventListener('input',render));
+  [searchField,category,legality,functionFilter,activationFilter,variantFilter,sort].forEach(el=>el.addEventListener('change',render));
+
+  shopFilter.addEventListener('change',()=>{
+    if(lockShop) return;
+    activeShop=shopFilter.value;
+    if(activeShop!=='all') activeTone=shopById(activeShop).tone;
+    else activeTone='all';
+    quickShop.value=activeShop;
+    renderDistrictNav();
+    renderShopRail();
+    applyShopHero();
+    render();
+  });
+
+  $('#clearSearch').addEventListener('click',()=>{search.value='';render();search.focus()});
+  $('#resetFiltersBtn').addEventListener('click',reset);
+  $('#filtersToggle').addEventListener('click',e=>{
+    const p=$('#filterPanel');
+    const willOpen=p.hidden;
+    p.hidden=!willOpen;
+    e.currentTarget.classList.toggle('active',willOpen);
+    e.currentTarget.setAttribute('aria-expanded',String(willOpen));
+    resizeParent();
+  });
+
+  introToggle.addEventListener('click',e=>{
+    const willOpen=introPanel.hidden;
+    introPanel.hidden=!willOpen;
+    e.currentTarget.classList.toggle('active',willOpen);
+    e.currentTarget.setAttribute('aria-expanded',String(willOpen));
+    resizeParent();
+  });
+  $('#railLeft').addEventListener('click',()=>rail.scrollBy({left:-320,behavior:'smooth'}));
+  $('#railRight').addEventListener('click',()=>rail.scrollBy({left:320,behavior:'smooth'}));
+  cards.addEventListener('click',e=>{const c=e.target.closest('[data-open]');if(c)openItem(c.dataset.open)});
+  cards.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest('[data-open]')){e.preventDefault();openItem(e.target.closest('[data-open]').dataset.open)}});
+  $('#drawerClose').addEventListener('click',closeDrawer);backdrop.addEventListener('click',closeDrawer);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('open'))closeDrawer()});
+  $('#gridBtn').addEventListener('click',()=>setView('grid'));$('#listBtn').addEventListener('click',()=>setView('list'));$('#resetBtn').addEventListener('click',reset);window.addEventListener('resize',resizeParent);window.addEventListener('load',resizeParent);
+  init();
+})();
+
+</script>
+</body>
+</html>
