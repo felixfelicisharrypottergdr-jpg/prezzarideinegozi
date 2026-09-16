@@ -1084,6 +1084,72 @@ body.location-hogsmeade{
   }
 }
 
+
+/* ===== V14 · ASSET SFONDI REALI ===== */
+body.location-diagon{
+  --location-bg:url('diagon.png');
+}
+body.location-notturn{
+  --location-bg:url('notturn.png');
+}
+body.location-hogsmeade{
+  --location-bg:url('hogsmeade.png');
+}
+
+.mystic-backdrop{
+  background-image:
+    linear-gradient(180deg,rgba(8,10,12,.35),rgba(8,10,12,.78)),
+    var(--location-bg),
+    radial-gradient(circle at 18% 10%,rgba(255,224,161,.10),transparent 18rem) !important;
+  background-size:cover !important;
+  background-position:center center !important;
+}
+
+/* ===== HOME VETRINA ===== */
+.home-showcase-note{
+  display:flex !important;
+}
+
+.home-showcase-note .home-title-extra{
+  display:block;
+}
+
+.showcase-intro{
+  margin:10px 0 18px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid rgba(184,170,130,.14);
+  background:
+    linear-gradient(135deg,rgba(255,230,170,.05),transparent 40%),
+    rgba(20,23,25,.72);
+}
+
+.showcase-intro strong{
+  display:block;
+  font-family:'magic','MedievalSharp',serif;
+  font-size:28px;
+  font-weight:normal;
+  color:#eee5d5;
+}
+
+.showcase-intro span{
+  display:block;
+  margin-top:6px;
+  color:#9da39e;
+  font-size:10px;
+  line-height:1.5;
+}
+
+/* Staff mode */
+body.staff-mode .staff-edit-toggle{
+  opacity:.85;
+  display:grid;
+}
+
+.staff-edit-toggle{
+  display:none;
+}
+
 </style>
 </head>
 <body>
@@ -1462,7 +1528,7 @@ window.CATALOG_DATA = {
      ============================================================ */
   meta: {
     title: "Catalogo del Mondo Magico",
-    version: "1.1-item-drawer-staff-location",
+    version: "1.4-in-evidenza-location-assets",
     currency: "G"
   },
 
@@ -2510,8 +2576,8 @@ function setLocationTheme(location){
     document.body.classList.toggle('home-showcase',pristine);
 
     if(pristine){
-      $('#collectionEyebrow').textContent='Vetrina magica';
-      $('#collectionTitle').textContent='Scoperte dal Mondo Magico';
+      $('#collectionEyebrow').textContent='In Evidenza';
+      $('#collectionTitle').textContent='Una selezione di articoli dalle botteghe del Mondo Magico';
     }
 
     count.textContent=shopContextCount();
@@ -2647,5 +2713,12 @@ function setLocationTheme(location){
 })();
 
 </script>
+
+<!-- V14 ASSET SFONDI:
+     diagon.png = Diagon Alley
+     notturn.png = Notturn Alley
+     hogsmeade.png = Hogsmeade
+-->
+
 </body>
 </html>
