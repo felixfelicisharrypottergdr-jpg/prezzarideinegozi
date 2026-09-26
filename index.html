@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="it">
 <head>
@@ -1792,83 +1793,15 @@ select, select option { color:#f4ead8 !important; background:#171a1b !important;
   <script>
 window.CATALOG_DATA = {shops:{},items:[]};
 
-
-/* ===== STAFF EDIT MODE =====
-   Attivazione prevista tramite chiave narrator.
-   Le modifiche vengono salvate nel database oggetti.
-*/
-const NARRATOR_MODE_KEY = 'prezzari_narrator_mode';
-
-function isNarratoreMode(){
-  return localStorage.getItem(NARRATOR_MODE_KEY)==='true';
-}
-
-function enableNarratoreMode(){
-  localStorage.setItem(NARRATOR_MODE_KEY,'true');
-  location.reload();
-}
-
-function disableNarratoreMode(){
-  localStorage.removeItem(NARRATOR_MODE_KEY);
-  location.reload();
-}
-
-function saveObjectEdit(objectId, data){
-  const custom = JSON.parse(localStorage.getItem('prezzari_custom_objects')||'{}');
-  custom[objectId]={
-    ...(custom[objectId]||{}),
-    ...data,
-    updated:new Date().toISOString()
-  };
-  localStorage.setItem('prezzari_custom_objects',JSON.stringify(custom));
-  location.reload();
-}
-
-
-function setLocationTheme(location){
-  document.body.classList.remove(
-    'location-diagon',
-    'location-notturn',
-    'location-hogsmeade'
-  );
-
-  if(location==='diagon') document.body.classList.add('location-diagon');
-  if(location==='notturn') document.body.classList.add('location-notturn');
-  if(location==='hogsmeade') document.body.classList.add('location-hogsmeade');
-}
-
-
-const narratorAccess = document.getElementById('narratorAccess');
-
+/* La modalità Staff viene autorizzata tramite Firebase nel modulo in fondo alla pagina. */
 function setNarratorMode(active){
-  if(active){
-    document.body.classList.add('narrator-mode');
-    localStorage.setItem('prezzari_narrator_mode','true');
-  }else{
-    document.body.classList.remove('narrator-mode');
-    localStorage.removeItem('prezzari_narrator_mode');
+  document.body.classList.toggle('narrator-mode',!!active);
+  const btn=document.getElementById('staffAccess');
+  if(btn){
+    btn.title=active?'Esci dalla modalità Staff':'Accedi alla modalità Staff';
+    btn.setAttribute('aria-label',btn.title);
   }
 }
-
-if(narratorAccess){
-  narratorAccess.addEventListener('click',()=>{
-    if(document.body.classList.contains('narrator-mode')){
-      setNarratorMode(false);
-      return;
-    }
-
-    const pass = prompt('Password Narratore prezzari:');
-    if(pass === 'ADMIN'){
-      setNarratorMode(true);
-      location.reload();
-    }
-  });
-}
-
-if(localStorage.getItem('prezzari_narrator_mode')==='true'){
-  document.body.classList.add('narrator-mode');
-}
-
 </script>
 <script src="database_oggetti.js"></script>
 <script id="ff-db-adapter-final">
@@ -2067,6 +2000,7 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
   const shopCategoryList = $('#shopCategoryList');
   const params = new URLSearchParams(location.search);
   const requestedShop = params.get('negozio');
+  const requestedObject = params.get('oggetto');
   const lockShop = params.get('lock') === '1';
   let activeShop = requestedShop && DATA.shops[requestedShop] ? requestedShop : 'all';
   let activeTone = activeShop !== 'all' ? (DATA.shops[activeShop].tone || 'all') : 'all';
@@ -2551,8 +2485,18 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
     return `<section class="detail-block"><h3><i class="fa-solid fa-circle-info"></i>Note</h3><div class="detail-copy">${item.notes.map(n=>`<div class="notice">${esc(n)}</div>`).join('<div style="height:7px"></div>')}</div></section>`;
   }
 
-  function openItem(id){
+  function syncObjectParam(id){
+    try{
+      const u=new URL(location.href);
+      if(id)u.searchParams.set('oggetto',id);
+      else u.searchParams.delete('oggetto');
+      history.replaceState(null,'',u.toString());
+    }catch(e){}
+  }
+
+  function openItem(id,{syncUrl=true}={}){
     const item=DATA.items.find(x=>x.id===id); if(!item) return;
+    if(syncUrl)syncObjectParam(item.id);
     const ctx=contextFor(item), s=ctx.shop;
     drawer.style.setProperty('--accent',s.accent);
     drawerContent.innerHTML=`<div class="drawer-hero"><img src="${esc(item.image||'')}" alt="${esc(item.name)}" onerror="this.remove()"><div class="drawer-hero-copy"><div class="drawer-shop">${esc(s.name)} · ${esc(item.category)}</div><h2>${esc(item.name)}</h2><p>${esc(item.summary||ctx.effect)}</p><span class="shop-tone-label"><i class="fa-solid ${s.tone==='sinistro'?'fa-skull':'fa-shield-heart'}"></i>${s.tone==='sinistro'?'Negozio sinistro':'Negozio virtuoso'}</span></div></div>
@@ -2562,7 +2506,13 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
     ${tiers(item)}${variants(item)}${expansions(item)}${notes(item)}</div>`;
     backdrop.hidden=false; drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
   }
-  function closeDrawer(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{backdrop.hidden=true;resizeParent()},280)}
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    syncObjectParam('');
+    setTimeout(()=>{backdrop.hidden=true;resizeParent()},280)
+  }
   function setView(v){view=v;localStorage.setItem('ff_catalog_view',v);cards.classList.toggle('list-view',v==='list');$('#gridBtn').classList.toggle('active',v==='grid');$('#listBtn').classList.toggle('active',v==='list');resizeParent()}
   function reset(){
     search.value='';
@@ -2658,6 +2608,9 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
   $('#gridBtn').addEventListener('click',()=>setView('grid'));$('#listBtn').addEventListener('click',()=>setView('list'));$('#resetBtn').addEventListener('click',reset);window.addEventListener('resize',resizeParent);window.addEventListener('load',resizeParent);
   applyShopTones();
   init();
+  if(requestedObject && DATA.items.some(x=>x.id===requestedObject)){
+    requestAnimationFrame(()=>openItem(requestedObject,{syncUrl:false}));
+  }
 })();
 
 </script>
@@ -2669,9 +2622,82 @@ if(localStorage.getItem('prezzari_narrator_mode')==='true'){
 -->
 
 
-<button class="narrator-access" id="narratorAccess" type="button">
-<i class="fa-solid fa-key"></i> Narratore
+<button class="narrator-access" id="staffAccess" type="button" title="Accedi alla modalità Staff" aria-label="Accedi alla modalità Staff">
+<i class="fa-solid fa-key"></i>
 </button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { getAuth, setPersistence, browserSessionPersistence, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, updateDoc, deleteDoc, deleteField, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyCvd56bSEL02s2OY2PSk7uyFX-CYRB4Vz0",
+  authDomain:"conteggi-eee1b.firebaseapp.com",
+  projectId:"conteggi-eee1b",
+  storageBucket:"conteggi-eee1b.firebasestorage.app",
+  messagingSenderId:"481320219586",
+  appId:"1:481320219586:web:87e974d618a302adfadc5b"
+};
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app),db=getFirestore(app);
+const accessBtn=document.getElementById('staffAccess');
+const ACCESS_KEY='ff_prezzari_staff_access_v1',TWELVE_HOURS=12*60*60*1000;
+let authReady=false;
+
+function savedAccess(){
+  try{const x=JSON.parse(sessionStorage.getItem(ACCESS_KEY)||'null');return x&&Number(x.until)>Date.now()?x:null}catch(e){return null}
+}
+async function ensureAuth(){
+  if(authReady&&auth.currentUser)return auth.currentUser;
+  await setPersistence(auth,browserSessionPersistence);
+  if(!auth.currentUser)await signInAnonymously(auth);
+  return await new Promise((resolve,reject)=>{
+    let done=false;
+    const stop=onAuthStateChanged(auth,u=>{if(done)return;if(u){done=true;authReady=true;stop();resolve(u)}},reject);
+    setTimeout(()=>{if(!done){done=true;stop();reject(new Error('Autenticazione Firebase non disponibile.'))}},9000);
+  });
+}
+function unlockStaff(until){
+  try{sessionStorage.setItem(ACCESS_KEY,JSON.stringify({until}))}catch(e){}
+  setNarratorMode(true);
+}
+function lockStaff(){
+  try{sessionStorage.removeItem(ACCESS_KEY)}catch(e){}
+  setNarratorMode(false);
+}
+async function loginStaff(){
+  const pw=prompt('Password Staff:');
+  if(pw===null)return;
+  if(!pw){alert('Inserisci la Password Staff.');return;}
+  accessBtn.disabled=true;
+  try{
+    const user=await ensureAuth();
+    const ref=doc(db,'staff_edit_sessions',user.uid);
+    await setDoc(ref,{uid:user.uid,proof:pw,createdAt:serverTimestamp()});
+    await updateDoc(ref,{proof:deleteField()});
+    unlockStaff(Date.now()+TWELVE_HOURS);
+  }catch(e){
+    console.error('Accesso Staff Prezzari:',e);
+    alert(e&&e.code==='permission-denied'?'Password Staff non valida.':'Accesso Staff non riuscito. Controlla la connessione e riprova.');
+    try{const u=auth.currentUser;if(u)await deleteDoc(doc(db,'staff_edit_sessions',u.uid))}catch(_e){}
+    lockStaff();
+  }finally{accessBtn.disabled=false;}
+}
+async function logoutStaff(){
+  accessBtn.disabled=true;
+  try{const u=auth.currentUser;if(u)await deleteDoc(doc(db,'staff_edit_sessions',u.uid))}catch(e){console.warn(e)}
+  lockStaff();
+  accessBtn.disabled=false;
+}
+accessBtn.addEventListener('click',()=>document.body.classList.contains('narrator-mode')?logoutStaff():loginStaff());
+try{
+  await ensureAuth();
+  const access=savedAccess();
+  if(access)unlockStaff(access.until);else lockStaff();
+}catch(e){console.error(e);lockStaff();}
+setInterval(()=>{const access=savedAccess();if(document.body.classList.contains('narrator-mode')&&(!access||access.until<=Date.now()))logoutStaff()},60000);
+</script>
 
 </body>
 </html>
